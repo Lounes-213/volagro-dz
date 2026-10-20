@@ -10,12 +10,12 @@
 # The `.html` suffixes come straight from the brief's old URL list.
 # ============================================================================
 
-# Root: `/` has no locale, so send visitors to the default language.
-# 302 (not 301) so the language gate's own detection stays authoritative.
-/  /fr/  302
+# Root: `/` is served by the exported language gate (out/index.html), which
+# detects the stored/locale preference and forwards to /<locale>/bienvenue/.
+# No host rule here, otherwise every visitor would be forced into /fr/.
 
-# ── Legacy URLs ─────────────────────────────────────────────────────────────
-/index.html     /fr/                          301
+# ── Legacy URLs ──────────────────────────────────────────────────────────────
+/index.html     /fr/bienvenue/                301
 /Repros.html    /fr/produits/cmv-repro        301
 /Contact.html   /fr/contact                   301
 /Galerie.html   /fr/galerie                   301

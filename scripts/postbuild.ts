@@ -4,15 +4,15 @@
  * `output: 'export'` ships files, not a server, so nothing can issue a redirect
  * for `/`. Two layers cover it:
  *
- *   1. Host-level: `public/_redirects` (Cloudflare Pages / Netlify) turns `/`
- *      into `/fr/` at the edge — zero HTML served, zero cost.
- *   2. This script: a real `out/index.html` for hosts without redirect support
- *      (S3, GitHub Pages, a plain nginx `try_files`). It is a complete, branded,
+ *   1. This script: a real `out/index.html` for every static host (S3, GitHub
+ *      Pages, cPanel/Apache, nginx `try_files`). It is a complete, branded,
  *      no-JS-functional page:
  *        · an inline script resolves the locale from a stored choice, then
  *          `navigator.languages`, then falls back to French;
  *        · a `<meta http-equiv="refresh">` catches JavaScript-disabled visitors;
  *        · visible links catch everything else, including crawlers.
+ *   2. The resolved locale is sent to `/<locale>/bienvenue/` — the welcome
+ *      screen — which then hands over to the home page on click or after 12s.
  *
  * The detected locale is *not* sticky on its own: only a deliberate choice in
  * the language switcher writes `volagro.locale` to localStorage, so we never
@@ -39,7 +39,7 @@ const escapeHtml = (value: string): string =>
 const buildGate = (): string => {
   const links = LOCALES.map(
     (code) =>
-      `        <li><a href="/${code}/" hreflang="${LOCALE_META[code].hreflang}" lang="${LOCALE_META[code].htmlLang}">${escapeHtml(LOCALE_META[code].endonym)} <span class="abbr">${escapeHtml(LOCALE_META[code].abbr)}</span></a></li>`,
+      `        <li><a href="/${code}/bienvenue/" hreflang="${LOCALE_META[code].hreflang}" lang="${LOCALE_META[code].htmlLang}">${escapeHtml(LOCALE_META[code].endonym)} <span class="abbr">${escapeHtml(LOCALE_META[code].abbr)}</span></a></li>`,
   ).join('\n');
 
   const alternates = LOCALES.map(
@@ -58,7 +58,7 @@ ${alternates}
     <link rel="alternate" hreflang="x-default" href="${siteUrl}/${DEFAULT_LOCALE}/" />
     <link rel="canonical" href="${siteUrl}/${DEFAULT_LOCALE}/" />
     <meta name="theme-color" content="#faf7f2" />
-    <meta http-equiv="refresh" content="2; url=/${DEFAULT_LOCALE}/" />
+    <meta http-equiv="refresh" content="2; url=/${DEFAULT_LOCALE}/bienvenue/" />
     <style>
       :root { color-scheme: light; }
       html, body { margin: 0; height: 100%; }
@@ -125,7 +125,7 @@ ${links}
             }
           }
         }
-        location.replace('/' + (target || fallback) + '/' + (location.hash || ''));
+        location.replace('/' + (target || fallback) + '/bienvenue/' + (location.hash || ''));
       })();
     </script>
   </body>
