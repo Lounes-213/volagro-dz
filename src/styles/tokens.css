@@ -1,0 +1,352 @@
+/* ============================================================================
+ * VOLAGRO — DESIGN TOKENS
+ * ----------------------------------------------------------------------------
+ * Tailwind CSS v4 is configured CSS-first: THIS FILE IS THE TAILWIND CONFIG.
+ * Every entry inside `@theme` does two things:
+ *   1. emits a real CSS custom property on `:root` (the "design tokens as CSS
+ *      variables" requirement — usable from inline styles, Framer Motion, SVG,
+ *      canvas and the image-manifest script);
+ *   2. generates the matching utility class (`bg-burgundy-600`, `font-display`,
+ *      `rounded-card`, `ease-industrial`, `text-d2`, …).
+ * There is no `tailwind.config.js` — v4 replaced it with this file. That is why
+ * the folder tree has no JS config: one source of truth, zero drift.
+ *
+ * ── NAMING ──────────────────────────────────────────────────────────────────
+ *   --color-<name>    raw palette          -> bg-*, text-*, border-*, ring-*
+ *   --color-<role>    semantic alias       -> same utilities, themeable scope
+ *   --text-<step>     fluid type scale     -> text-*, incl. line-height/tracking
+ *   --font-*          families             -> font-*
+ *   --radius-*, --shadow-*, --ease-*       -> rounded-*, shadow-*, ease-*
+ *
+ * ── THEMING ─────────────────────────────────────────────────────────────────
+ * Semantic roles (surface / ink / line / accent) point at palette entries.
+ * Redefining those four vars inside a scope re-themes every descendant, because
+ * Tailwind emits `color: var(--color-ink)`, not a hard-coded hex. `.theme-ink`
+ * below is the only dark scope in the product (footer strip + contact band),
+ * per the brief: "full light theme, dark only for footer sections".
+ * ========================================================================= */
+
+@theme static {
+  /* ── PALETTE · VIBRANT BRAND RED (lively & luminous, not dark/muddy) ──────
+   * User direction: "reje3 rouge hadak mais ma tdiruch hamiq"
+   * Clean, energetic brand red that contrasts brightly on cream and dark backgrounds. */
+  --color-red-50: #fff1f2;
+  --color-red-100: #ffe4e6;
+  --color-red-200: #fecdd3;
+  --color-red-300: #fda4af;
+  --color-red-400: #fb7185;
+  --color-red-500: #f43f5e;
+  --color-red-600: #dc2626; /* radiant brand red — 5.8:1 on cream, white-on-it 5.1:1 */
+  --color-red-700: #b91c1c;
+  --color-red-800: #991b1b;
+  --color-red-900: #7f1d1d;
+  --color-red-950: #450a0a;
+
+  --color-burgundy-50: var(--color-red-50);
+  --color-burgundy-100: var(--color-red-100);
+  --color-burgundy-200: var(--color-red-200);
+  --color-burgundy-300: var(--color-red-300);
+  --color-burgundy-400: var(--color-red-400);
+  --color-burgundy-500: var(--color-red-500);
+  --color-burgundy-600: var(--color-red-600);
+  --color-burgundy-700: var(--color-red-700);
+  --color-burgundy-800: var(--color-red-800);
+  --color-burgundy-900: var(--color-red-900);
+  --color-burgundy-950: var(--color-red-950);
+
+  /* ── PALETTE · CHARCOAL (ink & neutrals, faintly green-grey like the
+   *    logo's dark leaf — deliberately NOT a pure black/grey ramp) ─────── */
+  --color-charcoal-50: #f5f7f7;
+  --color-charcoal-100: #e6e8e8;
+  --color-charcoal-200: #cbd1d1;
+  --color-charcoal-300: #a6b0b0;
+  --color-charcoal-400: #7a8888;
+  --color-charcoal-500: #566464; /* 6.0:1 on cream — smallest AA body text  */
+  --color-charcoal-600: #3f4d4e; /* 8.6:1 on cream — muted body             */
+  --color-charcoal-700: #2e3a3b;
+  --color-charcoal-800: #1f2a2b; /* brand ink — 14.4:1 on cream             */
+  --color-charcoal-900: #141c1d;
+  --color-charcoal-950: #0b1112;
+
+  /* ── PALETTE · SAGE & GREEN (the logo's green leaf — agronomy, nutrition & vitality) ── */
+  --color-green-50: #f2f8f5;
+  --color-green-100: #e2f0e8;
+  --color-green-200: #c6e2d3;
+  --color-green-300: #9ecdb5;
+  --color-green-400: #6fb190;
+  --color-green-500: #46946e;
+  --color-green-600: #297250; /* leaf green matching the logo */
+  --color-green-700: #215a40;
+  --color-green-800: #1a4532;
+  --color-green-900: #143527;
+  --color-green-950: #0a1c14;
+
+  --color-sage-100: #e8edec;
+  --color-sage-200: #d3dad9;
+  --color-sage-400: #a8b4b3;
+  --color-sage-600: #6e7c7c;
+
+  /* ── PALETTE · AMBER (egg yolk — warmth, used sparingly) ──────────────────
+   * 500 is decorative only (2.1:1 on cream: never text). 800 is the text-safe
+   * amber at 5.4:1. */
+  --color-amber-200: #f7e3bd;
+  --color-amber-300: #f2c879;
+  --color-amber-500: #e9a13b;
+  --color-amber-700: #a9741a;
+  --color-amber-800: #8a5c12;
+
+  /* ── PALETTE · BASE PAPER ───────────────────────────────────────────────── */
+  --color-cream: #faf7f2; /* warm off-white — default page */
+  --color-cream-deep: #f3eee6; /* sunken wells, table stripes */
+  --color-paper: #ffffff; /* raised cards only */
+  --color-mist: #e6e8e6; /* soft grey — chips, inert states */
+
+  /* ── SEMANTIC ROLES (scoped-themeable) ───────────────────────────────────── */
+  --color-surface: var(--color-cream);
+  --color-surface-raised: var(--color-paper);
+  --color-surface-sunken: var(--color-cream-deep);
+  --color-surface-inverse: var(--color-charcoal-800);
+  --color-ink: var(--color-charcoal-800);
+  --color-ink-muted: var(--color-charcoal-600);
+  --color-ink-subtle: var(--color-charcoal-500);
+  --color-ink-inverse: var(--color-cream);
+  --color-line: color-mix(in oklab, var(--color-charcoal-800) 13%, transparent);
+  --color-line-strong: color-mix(in oklab, var(--color-charcoal-800) 26%, transparent);
+  --color-line-inverse: color-mix(in oklab, var(--color-cream) 18%, transparent);
+  --color-accent: var(--color-red-600);
+  --color-accent-hover: var(--color-red-700);
+  --color-accent-press: var(--color-red-800);
+  --color-accent-soft: var(--color-red-50);
+  --color-nature: var(--color-green-600);
+  --color-nature-hover: var(--color-green-700);
+  --color-nature-soft: var(--color-green-50);
+  --color-nature-ink: var(--color-green-800);
+  --color-on-accent: var(--color-paper);
+  --color-highlight: var(--color-amber-500);
+  --color-highlight-ink: var(--color-amber-800);
+  --color-focus: var(--color-green-600);
+
+  /* ── TYPOGRAPHY ───────────────────────────────────────────────────────────
+   * Families are injected by `next/font` (self-hosted, zero layout shift).
+   * Arabic NEVER uses the condensed Latin display face: `[dir="rtl"]` re-points
+   * --font-display at the Arabic family and relaxes leading/tracking, because
+   * condensed + tight tracking destroys Arabic legibility. */
+  --font-display:
+    var(--font-barlow-condensed), 'Arial Narrow', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-arabic: var(--font-plex-arabic), var(--font-inter), ui-sans-serif, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Menlo, Consolas, monospace;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Editorial display steps — condensed, tight, fluid (mobile-first clamp). */
+  --text-d1: clamp(2.75rem, 8.5vw, 6rem);
+  --text-d1--line-height: 0.88;
+  --text-d1--letter-spacing: -0.02em;
+  --text-d1--font-weight: 600;
+
+  --text-d2: clamp(2rem, 5vw, 3.75rem);
+  --text-d2--line-height: 0.92;
+  --text-d2--letter-spacing: -0.015em;
+  --text-d2--font-weight: 600;
+
+  --text-d3: clamp(1.5rem, 3vw, 2.375rem);
+  --text-d3--line-height: 1;
+  --text-d3--letter-spacing: -0.01em;
+  --text-d3--font-weight: 600;
+
+  --text-d4: clamp(1.25rem, 1.8vw, 1.625rem);
+  --text-d4--line-height: 1.12;
+  --text-d4--letter-spacing: -0.005em;
+  --text-d4--font-weight: 600;
+
+  /* Oversized figures for the key-numbers band.
+   *
+   * Sized in CONTAINER units, not viewport units, for a specific reason: these
+   * figures range from 4 glyphs (1998) to 10 (20 000 000), and all four share one
+   * size so the band reads as a single strip. A viewport-based `vw` clamp made
+   * the 10-glyph figure overflow its column and collide with the neighbouring
+   * one — visible in the first export, so it is now measured against the cell
+   * that actually holds it. Tabular numerals so the count-up never jitters
+   * horizontally (a CLS source removed by construction). */
+  --text-figure: clamp(1.5rem, 13cqw, 2.75rem);
+  --text-figure--line-height: 0.9;
+  --text-figure--letter-spacing: -0.02em;
+
+  --text-eyebrow: 0.75rem;
+  --text-eyebrow--line-height: 1;
+  --text-eyebrow--letter-spacing: 0.16em;
+
+  /* Body scale — 1.0625→1.1875rem reads generously on 4G phones. */
+  --text-2xs: 0.6875rem;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 1rem;
+  --text-base--line-height: 1.65;
+  --text-lg: clamp(1.0625rem, 0.35vw + 0.98rem, 1.1875rem);
+  --text-lg--line-height: 1.6;
+  --text-xl: clamp(1.1875rem, 0.5vw + 1.06rem, 1.375rem);
+  --text-xl--line-height: 1.5;
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-normal: 1.55;
+  --leading-relaxed: 1.7;
+  --tracking-eyebrow: 0.16em;
+
+  /* ── BREAKPOINTS (mobile-first; `xs` targets 360–430px farmer phones) ───── */
+  --breakpoint-xs: 26rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 96rem;
+
+  /* ── MEASURE / RHYTHM ──────────────────────────────────────────────────── */
+  --container-shell: 80rem; /* 1280px — standard content shell */
+  --container-shell-wide: 90rem; /* 1440px — hero, full-bleed galleries */
+  --container-prose: 46rem; /* readable column */
+  --container-narrow: 34rem; /* forms, aside columns */
+
+  /* ── RADII — industrial & restrained. No pill-shaped card soup. ────────── */
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-card: 4px;
+  --radius-none: 0;
+
+  /* ── DEPTH — hairlines and tint, not drop-shadow theatre ───────────────── */
+  --shadow-xs: 0 1px 1px rgb(31 42 43 / 0.04);
+  --shadow-sm: 0 1px 2px rgb(31 42 43 / 0.06);
+  --shadow-md: 0 10px 24px -14px rgb(31 42 43 / 0.22);
+  --shadow-lg: 0 24px 56px -28px rgb(31 42 43 / 0.28);
+  --shadow-accent: 0 14px 30px -18px rgb(33 90 64 / 0.45);
+
+  /* ── MOTION — one vocabulary, three durations, no bounce-cheese ────────── */
+  --ease-industrial: cubic-bezier(0.22, 1, 0.36, 1); /* enter / reveal */
+  --ease-swift: cubic-bezier(0.65, 0, 0.35, 1); /* state change */
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1); /* leave */
+
+  --animate-marquee: marquee 42s linear infinite;
+  --animate-sheen: sheen 2.6s var(--ease-industrial) infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  @keyframes sheen {
+    0%,
+    100% {
+      opacity: 0.15;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+}
+
+/* ============================================================================
+ * NON-UTILITY TOKENS
+ * Values consumed by hand-written CSS/inline styles only — not worth a utility
+ * each. Kept as plain custom properties so JS can read them back.
+ * ========================================================================= */
+:root {
+  --vg-gutter: clamp(1.25rem, 4vw, 4.5rem);
+  --vg-section-y: clamp(2.5rem, 5vw, 4.5rem);
+  --vg-section-y-tight: clamp(1.75rem, 3.5vw, 3rem);
+  --vg-rule: 1px;
+  --vg-rule-strong: 2px;
+  --vg-tap: 44px; /* WCAG 2.2 target size (min) */
+  --vg-header-h: 64px;
+  --vg-header-h-lg: 76px;
+  --vg-cta-bar-h: 60px;
+
+  --vg-dur-instant: 90ms;
+  --vg-dur-fast: 150ms;
+  --vg-dur-base: 260ms;
+  --vg-dur-slow: 520ms;
+  --vg-dur-scene: 900ms;
+
+  --vg-z-base: 0;
+  --vg-z-raised: 10;
+  --vg-z-sticky: 40;
+  --vg-z-header: 60;
+  --vg-z-sheet: 70;
+  --vg-z-overlay: 80;
+  --vg-z-toast: 90;
+
+  /* Photographic grade, applied by <Figure>: one treatment for every real photo
+   * so imports from phones and DSLRs read as one commissioned shoot. */
+  --vg-grade-filter: saturate(1.04) contrast(1.04) brightness(1.01) sepia(0.06) hue-rotate(-6deg);
+  --vg-scrim: linear-gradient(
+    to top,
+    rgb(11 17 18 / 0.86) 0%,
+    rgb(11 17 18 / 0.55) 34%,
+    rgb(11 17 18 / 0.12) 62%,
+    rgb(11 17 18 / 0) 100%
+  );
+  --vg-scrim-accent: linear-gradient(
+    100deg,
+    rgb(10 28 20 / 0.92) 0%,
+    rgb(26 69 50 / 0.75) 42%,
+    rgb(31 42 43 / 0.55) 100%
+  );
+}
+
+/* ── Arabic typography corrections ──────────────────────────────────────────
+ * Arabic script is never condensed and never negatively tracked; it also needs
+ * markedly more line-height to avoid clipped ascenders/diacritics. */
+[dir='rtl'] {
+  --font-display: var(--font-plex-arabic), var(--font-inter), ui-sans-serif, sans-serif;
+  --text-d1--line-height: 1.24;
+  --text-d2--line-height: 1.26;
+  --text-d3--line-height: 1.34;
+  --text-d4--line-height: 1.42;
+  --text-figure--line-height: 1.12;
+  --text-figure--letter-spacing: 0;
+  --tracking-eyebrow: 0.02em;
+}
+
+[dir='rtl'] .eyebrow,
+[dir='rtl'] .figure-num {
+  letter-spacing: var(--tracking-eyebrow);
+}
+
+/* ── `.theme-ink` — the only dark scope (footer strip, contact band) ────────
+ * Overriding roles is enough: every token-based utility inside flips. */
+.theme-ink {
+  --color-surface: var(--color-charcoal-900);
+  --color-surface-raised: var(--color-charcoal-800);
+  --color-surface-sunken: var(--color-charcoal-950);
+  --color-ink: var(--color-cream);
+  --color-ink-muted: color-mix(in oklab, var(--color-cream) 74%, transparent);
+  --color-ink-subtle: color-mix(in oklab, var(--color-cream) 58%, transparent);
+  --color-line: var(--color-line-inverse);
+  --color-line-strong: color-mix(in oklab, var(--color-cream) 32%, transparent);
+  --color-accent: var(--color-red-400);
+  --color-accent-hover: var(--color-red-300);
+  --color-accent-soft: color-mix(in oklab, var(--color-red-500) 24%, transparent);
+  --color-nature: var(--color-green-400);
+  --color-nature-soft: color-mix(in oklab, var(--color-green-500) 24%, transparent);
+  --color-focus: var(--color-cream);
+
+  color: var(--color-ink);
+  background-color: var(--color-surface);
+}
+
+/* Forced-colors / high-contrast safety net: tokens collapse, borders survive. */
+@media (forced-colors: active) {
+  :root {
+    --color-line: CanvasText;
+    --color-accent: Highlight;
+  }
+}

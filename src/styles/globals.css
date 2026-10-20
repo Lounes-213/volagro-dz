@@ -1,0 +1,455 @@
+/* ============================================================================
+ * VOLAGRO — GLOBAL STYLESHEET
+ * Imported once, by `src/app/layout.tsx`. Order matters:
+ *   1. Tailwind core (defines @layer + preflight)
+ *   2. Design tokens (@theme above) — must be present when utilities compile
+ *   3. Base overrides
+ *   4. Hand-written utilities that are too composite for a single utility class
+ * ========================================================================= */
+
+@import 'tailwindcss';
+@import './tokens.css';
+
+/* Explicit source roots: `src` (components/routes) + `content` (data files can
+ * carry tone/variant class fragments). Tailwind v4 auto-detects, but being
+ * explicit keeps the build deterministic on CI. */
+@source '../';
+@source '../../content';
+
+/* Variants we reach for repeatedly. */
+@custom-variant rtl (&:where([dir='rtl'], [dir='rtl'] *));
+@custom-variant ltr (&:where([dir='ltr'], [dir='ltr'] *));
+@custom-variant motion-ok (@media (prefers-reduced-motion: no-preference));
+@custom-variant motion-less (@media (prefers-reduced-motion: reduce));
+@custom-variant coarser (@media (pointer: coarse));
+@custom-variant hoverable (@media (hover: hover) and (pointer: fine));
+
+/* ─────────────────────────────────────────────────────────────────────────────
+ * BASE
+ * ────────────────────────────────────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    /* Anchor targets must clear the sticky header. */
+    scroll-padding-block-start: calc(var(--vg-header-h) + 1.25rem);
+    background-color: var(--color-surface);
+  }
+
+  body {
+    margin: 0;
+    min-height: 100dvh;
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.65;
+    font-synthesis-weight: none;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    /* Never allow a wide table/diagram to scroll the whole page sideways. */
+    overflow-x: hidden;
+  }
+
+  /* Arabic gets the Arabic face everywhere, including form controls. */
+  [dir='rtl'] body {
+    font-family: var(--font-arabic);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: var(--leading-tight);
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    display: block;
+    max-width: 100%;
+  }
+
+  img {
+    height: auto;
+  }
+
+  /* Reserving intrinsic space for media is what keeps CLS < 0.05: every
+   * <Figure> wraps next/image with an aspect-ratio box, never raw dimensions. */
+  figure {
+    margin: 0;
+  }
+
+  button,
+  input,
+  select,
+  textarea {
+    font: inherit;
+    color: inherit;
+  }
+
+  button {
+    cursor: pointer;
+    background: none;
+    border: 0;
+  }
+
+  :disabled {
+    cursor: not-allowed;
+  }
+
+  /* Visible focus, everywhere, in both directions and both themes. */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-xs);
+  }
+
+  :target {
+    scroll-margin-block-start: calc(var(--vg-header-h) + 1.25rem);
+  }
+
+  ::selection {
+    background-color: var(--color-green-700);
+    color: var(--color-paper);
+  }
+
+  ::placeholder {
+    color: var(--color-charcoal-500);
+    opacity: 1;
+  }
+
+  /* Numbers in tables must align in both LTR and RTL sentences. */
+  table {
+    border-collapse: collapse;
+    inline-size: 100%;
+  }
+
+  th,
+  td {
+    text-align: start;
+  }
+
+  hr {
+    border: 0;
+    border-block-start: var(--vg-rule) solid var(--color-line);
+    margin-block: 0;
+  }
+
+  /* Smooth scroll is applied on user interactions/anchors, not globally on load,
+   * to ensure entering the site lands immediately at the top without visible scroll lag. */
+
+  /* We never animate on the user's behalf when they asked us not to. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+ * COMPOSITE UTILITIES
+ * Logical-property only (inline/block start/end) so RTL is genuine, not patched.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+/* Layout shells — one rhythm for the whole site. */
+@utility shell {
+  inline-size: 100%;
+  margin-inline: auto;
+  max-inline-size: var(--container-shell);
+  padding-inline: var(--vg-gutter);
+}
+
+@utility shell-wide {
+  inline-size: 100%;
+  margin-inline: auto;
+  max-inline-size: var(--container-shell-wide);
+  padding-inline: var(--vg-gutter);
+}
+
+@utility shell-prose {
+  inline-size: 100%;
+  max-inline-size: var(--container-prose);
+}
+
+@utility section {
+  padding-block: var(--vg-section-y);
+}
+
+@utility section-tight {
+  padding-block: var(--vg-section-y-tight);
+}
+
+/* Uppercase micro-label that opens every section ("01 — FILIÈRE"). */
+@utility eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--text-eyebrow);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-eyebrow);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--color-ink-subtle);
+}
+
+/* The section marker: a burgundy tick before the eyebrow. */
+@utility marker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+}
+
+@utility marker-tick {
+  inline-size: 1.75rem;
+  block-size: 2px;
+  background: linear-gradient(to right in oklab, var(--color-accent), var(--color-green-600));
+  flex: none;
+}
+
+/* Hairline rule, block-axis so it behaves in RTL automatically. */
+@utility hairline {
+  border-block-start: var(--vg-rule) solid var(--color-line);
+}
+
+@utility hairline-strong {
+  border-block-start: var(--vg-rule-strong) solid var(--color-accent);
+}
+
+/* The wrapper that makes `cqw` inside `.figure-num` mean "this cell".
+ * `min-inline-size: 0` lets a grid item shrink instead of forcing the track
+ * wider — the other half of why a long figure used to push into its neighbour. */
+@utility figure-cell {
+  container-type: inline-size;
+  min-inline-size: 0;
+}
+
+/* Big condensed figures (key numbers, table numerics). */
+@utility figure-num {
+  font-family: var(--font-display);
+  font-size: var(--text-figure);
+  line-height: var(--text-figure--line-height);
+  letter-spacing: var(--text-figure--letter-spacing);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+@utility tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+
+/* Unbreakable touch target floor for every tappable control (WCAG 2.2). */
+@utility tap {
+  min-block-size: var(--vg-tap);
+  min-inline-size: var(--vg-tap);
+}
+
+/* The single photographic grade — applied by <Figure> to every real photo. */
+@utility grade {
+  filter: var(--vg-grade-filter);
+}
+
+/* Bottom scrim for text-over-photograph legibility. */
+@utility scrim {
+  background-image: var(--vg-scrim);
+}
+
+@utility scrim-accent {
+  background-image: var(--vg-scrim-accent);
+}
+
+/* Faint engineering grid — used as a section texture, never full-bleed noise. */
+@utility grid-lines {
+  background-image:
+    linear-gradient(to inline-end, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to block-end, var(--color-line) 1px, transparent 1px);
+  background-size: 88px 88px;
+}
+
+/* Placeholder-state hatch used while a real photo slot is still empty. */
+@utility hatch {
+  background-color: var(--color-charcoal-900);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgb(250 247 242 / 0.07) 0,
+    rgb(250 247 242 / 0.07) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+}
+
+/* Screen-reader-only text that stays reachable by assistive tech. */
+@utility sr-only-focusable {
+  &:not(:focus):not(:focus-within) {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+/* RTL mirror helper for directional glyphs/arrows only. */
+@utility flip-rtl {
+  &:where([dir='rtl'] *) {
+    scale: -1 1;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────────────
+ * ANIMATIONS & MICRO-INTERACTIONS
+ * ────────────────────────────────────────────────────────────────────────── */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.02);
+  }
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    opacity: 0.25;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.65;
+    transform: scale(1.08);
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3.5s ease-in-out infinite;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.card-interactive {
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.25s ease;
+}
+
+.card-interactive:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px -10px rgba(31, 42, 43, 0.12);
+  border-color: rgba(41, 114, 80, 0.35);
+}
+
+.img-zoom {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .img-zoom {
+  transform: scale(1.04);
+}
+
+/* ── WhatsApp Glowing Light & Smooth Floating Motion ─────────────────────── */
+@keyframes whatsapp-ring {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(41, 114, 80, 0.75), 0 8px 24px -4px rgba(26, 69, 50, 0.5);
+  }
+  65% {
+    transform: scale(1);
+    box-shadow: 0 0 0 16px rgba(41, 114, 80, 0), 0 14px 28px -4px rgba(26, 69, 50, 0.55);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(41, 114, 80, 0), 0 8px 24px -4px rgba(26, 69, 50, 0.5);
+  }
+}
+
+@keyframes whatsapp-float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes light-sweep {
+  0% {
+    left: -100%;
+  }
+  20%, 100% {
+    left: 140%;
+  }
+}
+
+.animate-whatsapp-float {
+  animation: whatsapp-float 3.4s ease-in-out infinite;
+}
+
+.animate-whatsapp-glow {
+  animation: whatsapp-ring 2.6s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+.animate-light-sweep {
+  animation: light-sweep 4s ease-in-out infinite;
+}
+
+

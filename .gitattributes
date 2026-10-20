@@ -1,0 +1,16 @@
+# Normalise line endings in the repository (store LF, checkout per platform)
+* text=auto eol=lf
+
+# Explicit binary assets — never diff or convert these
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.webp  binary
+*.avif  binary
+*.mp4   binary
+*.woff  binary
+*.woff2 binary
+*.ico   binary
+
+# Lockfile: keep it out of diffs and merge reviews
+package-lock.json linguist-generated=true -diff

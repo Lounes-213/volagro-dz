@@ -1,0 +1,25 @@
+# ============================================================================
+# Cloudflare Pages redirect rules (also honoured by Netlify).
+#
+# WHY THIS FILE EXISTS: `output: 'export'` produces a folder of static files and
+# no server, so Next's `redirects()` config is unavailable. Host-level rules are
+# the only way to route the legacy URLs — and they are *faster* anyway: the
+# redirect happens at the edge, before any HTML is served.
+#
+# Target language is /fr/ because the legacy site was French-only.
+# The `.html` suffixes come straight from the brief's old URL list.
+# ============================================================================
+
+# Root: `/` has no locale, so send visitors to the default language.
+# 302 (not 301) so the language gate's own detection stays authoritative.
+/  /fr/  302
+
+# ── Legacy URLs ─────────────────────────────────────────────────────────────
+/index.html     /fr/                          301
+/Repros.html    /fr/produits/cmv-repro        301
+/Contact.html   /fr/contact                   301
+/Galerie.html   /fr/galerie                   301
+
+# ── Convenience aliases for the URLs people type by hand ────────────────────
+/devis          /fr/contact#devis             301
+/produits/      /fr/produits/                 200

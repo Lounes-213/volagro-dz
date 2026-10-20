@@ -1,0 +1,28 @@
+# ============================================================================
+# Cloudflare Pages header rules.
+#
+# Static export means every byte is a file, so we can be aggressive: hashed
+# build assets and pre-optimised images are immutable for a year, while the HTML
+# itself must never be cached (a stale HTML shell pointing at deleted chunks is
+# the classic static-host white screen).
+# ============================================================================
+
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/documents/*
+  Cache-Control: public, max-age=86400
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*
+  Cache-Control: public, max-age=0, must-revalidate
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload

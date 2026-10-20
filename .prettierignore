@@ -1,0 +1,10 @@
+out
+.next
+node_modules
+package-lock.json
+public/images
+public/documents
+content/**/*.generated.ts
+docs/reference
+playwright-report
+test-results
