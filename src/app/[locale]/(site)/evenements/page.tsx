@@ -177,7 +177,7 @@ export default async function EventsPage({
       id: 'visite-techna-nantes-afrique',
       slot: 'photo.legacy.35',
       tag: { fr: 'Visite Industrielle', ar: 'زيارة صناعية', en: 'Industrial Visit' },
-      date: 'Nantes, France',
+      date: 'Septembre 2026 • Nantes, France',
       title: {
         fr: 'Visite terrain de l’unité de production TECHNA à Nantes',
         ar: 'زيارة ميدانية لوحدة إنتاج المركزات لمجمع تيكنا ب نانت',
