@@ -430,6 +430,42 @@ const LEGACY_SEEDS: readonly LegacySeed[] = [
       en: 'SEVAGRO National Expo (Bouira) — Engaging with local farmers and agricultural leaders (Photo 5/5).',
     },
   },
+  {
+    n: '32',
+    width: 800,
+    height: 600,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Salon International SIPSA 2026 — L'équipe SARL VOLAGRO et ses partenaires au stand officiel (Photo 1/3).",
+      ar: 'الصالون الدولي للإنتاج الحيواني SIPSA 2026 — فريق شركة فولاڨرو والشركاء في الجناح الرسمي (صورة 1/3).',
+      en: 'SIPSA 2026 International Livestock Expo — SARL VOLAGRO team and partners at the official stand (Photo 1/3).',
+    },
+  },
+  {
+    n: '33',
+    width: 590,
+    height: 443,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Salon International SIPSA 2026 — Accueil des visiteurs et échanges devant l'espace d'exposition SAFEX (Photo 2/3).",
+      ar: 'الصالون الدولي للإنتاج الحيواني SIPSA 2026 — استقبال الزوار والوفود أمام فضاء العرض بقصر المعارض (صورة 2/3).',
+      en: 'SIPSA 2026 International Livestock Expo — Welcoming visitors and delegations at SAFEX exhibition space (Photo 2/3).',
+    },
+  },
+  {
+    n: '34',
+    width: 590,
+    height: 443,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Salon International SIPSA 2026 — Clôture et photo d'ensemble de la délégation d'experts (Photo 3/3).",
+      ar: 'الصالون الدولي للإنتاج الحيواني SIPSA 2026 — صورة جماعية للوفد والخبراء بمناسبة فعاليات الصالون (صورة 3/3).',
+      en: 'SIPSA 2026 International Livestock Expo — Group photo of the expert delegation commemorating the event (Photo 3/3).',
+    },
+  },
 ];
 
 const LEGACY_PHOTOS: readonly ManifestEntry[] = LEGACY_SEEDS.map((seed) => ({

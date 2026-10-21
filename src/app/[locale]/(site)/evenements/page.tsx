@@ -157,6 +157,22 @@ export default async function EventsPage({
         en: 'Active participation of SARL VOLAGRO at the SEVAGRO National Green Agro-Industry Expo in Bouira: presenting CMV premix lines, technical guidance, and meeting local livestock farmers.',
       },
     },
+    {
+      id: 'salon-sipsa-2026',
+      slot: 'photo.legacy.32',
+      tag: { fr: 'Salon International', ar: 'صالون دولي', en: 'International Fair' },
+      date: 'Édition SIPSA 2026',
+      title: {
+        fr: 'Présence de VOLAGRO au Salon International SIPSA 2026',
+        ar: 'حضور شركة فولاڨرو في الصالون الدولي للإنتاج الحيواني والعتاد SIPSA 2026',
+        en: 'VOLAGRO at the SIPSA 2026 International Livestock Exhibition',
+      },
+      desc: {
+        fr: 'Accueil de nos partenaires et visiteurs au Salon International de l’Élevage et de l’Agroéquipement SIPSA 2026, autour de nos innovations en nutrition animale et partenariats TECHNA.',
+        ar: 'استقبال الشركاء والزوار في الصالون الدولي لتربية الحيوانات والعتاد الفلاحي SIPSA 2026، لعرض أحدث برامج التغذية وحلول مجمع تيكنا.',
+        en: 'Welcoming partners and visitors at the SIPSA 2026 International Livestock & Agricultural Equipment Show, presenting advanced nutrition programs and TECHNA partnership.',
+      },
+    },
   ];
 
   return (
