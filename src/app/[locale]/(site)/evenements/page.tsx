@@ -161,7 +161,7 @@ export default async function EventsPage({
       id: 'salon-sipsa-2026',
       slot: 'photo.legacy.32',
       tag: { fr: 'Salon International', ar: 'صالون دولي', en: 'International Fair' },
-      date: 'Édition SIPSA 2026',
+      date: 'Mai 2026 • SAFEX, Alger',
       title: {
         fr: 'Présence de VOLAGRO au Salon International SIPSA 2026',
         ar: 'حضور شركة فولاڨرو في الصالون الدولي للإنتاج الحيواني والعتاد SIPSA 2026',
