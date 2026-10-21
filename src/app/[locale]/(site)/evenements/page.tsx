@@ -125,6 +125,22 @@ export default async function EventsPage({
         en: 'SARL VOLAGRO representatives alongside international experts: sharing field expertise, capacity building, and advanced nutrition knowledge transfer.',
       },
     },
+    {
+      id: 'visite-techna-space-rennes',
+      slot: 'photo.legacy.22',
+      tag: { fr: 'Visite Stratégique & Salon', ar: 'زيارة استراتيجية ومعرض', en: 'Strategic Visit & Expo' },
+      date: 'Nantes & Rennes, France',
+      title: {
+        fr: 'Visite au siège du Groupe TECHNA à Nantes & Salon SPACE à Rennes',
+        ar: 'زيارة مقر مجمع تيكنا بنانت والمشاركة في صالون SPACE بمدينة رين',
+        en: 'Visit to TECHNA Group Headquarters in Nantes & SPACE Expo in Rennes',
+      },
+      desc: {
+        fr: 'Immersion de la délégation VOLAGRO au siège mondial de TECHNA et présence au salon SPACE : réunions au sommet, découverte des dernières innovations zootechniques et consolidation du partenariat.',
+        ar: 'تواجد وفد فولاڨرو بالمقر الرئيسي لمجمع TECHNA بفرنسا وزيارة صالون SPACE: جلسات عمل استراتيجية، استكشاف أحدث التكنولوجيات، وتوطيد الشراكة الصناعية والتقنية.',
+        en: 'VOLAGRO leadership delegation at TECHNA global HQ and SPACE expo: strategic meetings, discovering state-of-the-art zootechnical innovations, and reinforcing bilateral cooperation.',
+      },
+    },
   ];
 
   return (

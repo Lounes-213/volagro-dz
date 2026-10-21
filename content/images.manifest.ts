@@ -310,6 +310,66 @@ const LEGACY_SEEDS: readonly LegacySeed[] = [
       en: 'SIPSA 2025 Exhibition — VOLAGRO technical and commercial team dedicated to agricultural excellence (Photo 5/5).',
     },
   },
+  {
+    n: '22',
+    width: 1000,
+    height: 563,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Visite au siège du Groupe TECHNA (Nantes, France) & Salon SPACE de Rennes — Réunion bilatérale au sommet (Photo 1/5).",
+      ar: 'زيارة مقر مجمع تيكنا (نانت، فرنسا) بمناسبة صالون SPACE بمدينة رين — اجتماع ثنائي رفيع المستوى (صورة 1/5).',
+      en: 'Visit to TECHNA Group HQ (Nantes, France) & SPACE Rennes Exhibition — High-level bilateral summit (Photo 1/5).',
+    },
+  },
+  {
+    n: '23',
+    width: 590,
+    height: 332,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Visite TECHNA France — Rencontre entre dirigeants et experts en nutrition de précision (Photo 2/5).",
+      ar: 'زيارة تيكنا فرنسا — لقاء القيادات وخبراء التغذية الدقيقة الحيوانية (صورة 2/5).',
+      en: 'TECHNA France Visit — Leadership and precision animal nutrition specialists meeting (Photo 2/5).',
+    },
+  },
+  {
+    n: '24',
+    width: 332,
+    height: 590,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Siège de TECHNA à Nantes — Échanges approfondis sur les programmes CMV et innovations zootechniques (Photo 3/5).",
+      ar: 'مقر تيكنا بنانت — مباحثات معمقة حول برامج مكملات الـ CMV والابتكار البيطري (صورة 3/5).',
+      en: 'TECHNA HQ in Nantes — In-depth discussions on CMV premix programs and zootechnical innovations (Photo 3/5).',
+    },
+  },
+  {
+    n: '25',
+    width: 590,
+    height: 332,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Délégation VOLAGRO au Salon International SPACE (Rennes) — Découverte des dernières technologies d'élevage (Photo 4/5).",
+      ar: 'وفد فولاڨرو بالصالون الدولي للإنتاج الحيواني SPACE (رين) — استكشاف أحدث تكنولوجيات تربية الماشية والدواجن (صورة 4/5).',
+      en: 'VOLAGRO delegation at SPACE International Livestock Expo (Rennes) — Exploring cutting-edge farming tech (Photo 4/5).',
+    },
+  },
+  {
+    n: '26',
+    width: 590,
+    height: 332,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Partenariat VOLAGRO & TECHNA — Photo souvenir scellant la coopération continue et le transfert de savoir-faire (Photo 5/5).",
+      ar: 'شراكة فولاڨرو وتيكنا — صورة تذكارية تجسد التعاون المستمر ونقل الخبرات الدولية للجزائر (صورة 5/5).',
+      en: 'VOLAGRO & TECHNA Partnership — Commemorative photo cementing ongoing cooperation and know-how transfer (Photo 5/5).',
+    },
+  },
 ];
 
 const LEGACY_PHOTOS: readonly ManifestEntry[] = LEGACY_SEEDS.map((seed) => ({
