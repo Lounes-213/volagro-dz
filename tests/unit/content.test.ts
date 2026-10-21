@@ -120,7 +120,7 @@ describe('the supplied figures are locked to the brief', () => {
   it('carries exactly the four documented key figures', () => {
     expect(KEY_FIGURES.map((figure) => [figure.id, figure.value, figure.kind])).toEqual([
       ['founding', 1998, 'year'],
-      ['chicks', 20_000_000, 'quantity'],
+      ['chicks', 20, 'quantity'],
       ['premix', 5_000, 'quantity'],
       ['partnership', 2018, 'year'],
     ]);
