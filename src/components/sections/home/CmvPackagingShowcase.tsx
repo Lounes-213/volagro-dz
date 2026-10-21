@@ -161,8 +161,10 @@ export const CmvPackagingShowcase = ({ locale }: { readonly locale: Locale }) =>
                   src={item.image}
                   alt={pick(item.title, locale)}
                   fill
+                  loading="lazy"
+                  decoding="async"
                   sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 92vw"
-                  className="img-zoom object-cover"
+                  className="img-zoom object-cover will-change-transform"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/70 via-transparent to-transparent opacity-60 transition-opacity group-hover:opacity-40" />
 

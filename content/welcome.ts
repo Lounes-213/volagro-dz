@@ -77,6 +77,11 @@ export const WELCOME_MESSAGE = {
 };
 
 export const WELCOME = {
+  eyebrow: {
+    fr: 'SARL VOLAGRO • NUTRITION ANIMALE & AVICULTURE',
+    ar: 'شركة فولاغرو • التغذية الحيوانية وتربية الدواجن',
+    en: 'SARL VOLAGRO • ANIMAL NUTRITION & POULTRY',
+  },
   greeting: {
     fr: 'Bienvenue',
     ar: 'مرحبًا بكم',

@@ -129,13 +129,6 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_80%_70%,rgba(33,90,64,0.20)_0%,transparent_68%)]" />
         <div className="absolute inset-0 bg-gradient-to-b from-charcoal-950/55 via-transparent to-charcoal-950/95" />
         <div className="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-75 shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
-
-        <svg className="absolute inset-0 h-full w-full opacity-[0.045] mix-blend-overlay">
-          <filter id="welcome-grain">
-            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="3" />
-          </filter>
-          <rect width="100%" height="100%" filter="url(#welcome-grain)" />
-        </svg>
       </div>
 
       <motion.div
@@ -200,7 +193,7 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
             {/* En-tête Bienvenue et Présentation de la Société en grand */}
             <div className="space-y-3">
               <span className="inline-block text-xs font-mono font-bold uppercase tracking-[0.22em] text-red-500">
-                SARL VOLAGRO • NUTRITION ANIMALE & AVICULTURE
+                {pick(WELCOME.eyebrow, locale)}
               </span>
               <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-cream drop-shadow-md">
                 {pick(WELCOME.greeting, locale)}
@@ -220,12 +213,12 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
               initial={reduced ? false : { opacity: 0, y: 25 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: appear(0.4), ease: EASE }}
-              className="mt-6 max-w-2xl border-t border-b border-white/15 py-4 backdrop-blur-[2px]"
+              className="mt-6 max-w-2xl border-t border-b border-white/15 py-4"
             >
-              {/* Message scrollable container avec défilement ultra-doux */}
+              {/* Message scrollable container optimisé matériellement */}
               <div
                 ref={scrollContainerRef}
-                className="custom-scrollbar max-h-[38vh] space-y-5 overflow-y-auto pe-3 text-sm leading-relaxed text-cream/90 md:max-h-[42vh] md:text-[0.9375rem]"
+                className="custom-scrollbar max-h-[38vh] space-y-5 overflow-y-auto pe-3 text-sm leading-relaxed text-cream/90 md:max-h-[42vh] md:text-[0.9375rem] [will-change:scroll-position] overscroll-contain"
               >
                 <p className="font-display text-lg font-bold text-red-400">
                   {pick(WELCOME_MESSAGE.salutation, locale)}
