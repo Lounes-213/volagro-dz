@@ -1,7 +1,8 @@
 'use client';
 
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useAnimate, useReducedMotion } from 'motion/react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { PRIMARY_PHONE } from '@content/company';
 import { NAV_PRIMARY, NAV_SECONDARY, type NavItem } from '@content/navigation';
@@ -16,10 +17,51 @@ import { cn } from '@/lib/utils/cn';
 
 const MENU_PANEL_ID = 'header-mega-panel';
 
+const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
+/** next-intl strips the locale prefix; trailing slashes are normalised here. */
+const normalizePath = (value: string): string => {
+  const trimmed = value.replace(/\/+$/, '');
+  return trimmed === '' ? '/' : trimmed;
+};
+
+const isItemActive = (href: string, pathname: string): boolean => {
+  const current = normalizePath(pathname);
+  const target = normalizePath(href);
+  return target === '/' ? current === '/' : current === target || current.startsWith(`${target}/`);
+};
+
 export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
   const pathname = usePathname();
+  const reduced = useReducedMotion() === true;
   const [scrolled, setScrolled] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  /*
+   * The welcome screen leaves a one-shot hint before handing over. Reading it in
+   * a lazy initializer lets the header play its entrance on the first frame
+   * after hydration, so the hand-off reads as one continuous motion.
+   */
+  const [arriving] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    try {
+      const flag = window.sessionStorage.getItem('vg:entered-site') === '1';
+      if (flag) window.sessionStorage.removeItem('vg:entered-site');
+      return flag;
+    } catch {
+      return false;
+    }
+  });
+  const [headerScope, animateHeader] = useAnimate<HTMLElement>();
+
+  useIsoLayoutEffect(() => {
+    if (!arriving || reduced || !headerScope.current) return;
+    animateHeader(
+      headerScope.current,
+      { y: [-72, 0], opacity: [0, 1] },
+      { duration: 0.6, ease: [0.22, 1, 0.36, 1] },
+    );
+  }, [arriving, reduced, animateHeader, headerScope]);
 
   /*
    * Menu state is STAMPED WITH THE PATHNAME it was opened on, and read through a
@@ -80,16 +122,17 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
   return (
     <>
       <header
+        ref={headerScope}
         className={cn(
-          'bg-surface/92 sticky top-0 z-60 backdrop-blur-md transition-shadow duration-200',
-          scrolled ? 'shadow-sm border-line border-b' : 'border-b border-transparent',
+          'sticky top-0 z-60 bg-surface/92 backdrop-blur-md transition-shadow duration-200',
+          scrolled ? 'border-b border-line shadow-sm' : 'border-b border-transparent',
         )}
       >
         <div className="h-[3px] w-full bg-red-600" />
-        <div className="shell flex h-16 items-center justify-between gap-4 lg:h-[76px]">
+        <div className="shell-wide flex h-16 items-center justify-between gap-4 lg:h-[76px]">
           <Link
             href="/"
-            className="tap -ms-2 flex items-center pe-2"
+            className="-ms-2 flex items-center pe-2 tap"
             aria-label={`${pick(UI.menu, locale)} — VOLAGRO`}
           >
             <Image
@@ -109,6 +152,7 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
                 key={item.id}
                 item={item}
                 locale={locale}
+                active={isItemActive(item.href, pathname)}
                 isOpen={openMenu === item.id}
                 onOpen={() => {
                   cancelClose();
@@ -120,22 +164,23 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <LanguageSwitcher className="hidden lg:flex" />
 
             <a
               href={telHref(phone)}
-              className="border-line-strong hover:border-accent hover:text-accent hidden h-11 items-center gap-2 rounded-sm border px-3.5 text-sm font-medium transition-colors lg:inline-flex"
+              aria-label={`${pick(UI.callNow, locale)} — ${phone.display}`}
+              title={phone.display}
+              className="hidden h-11 w-11 items-center justify-center rounded-sm border border-line-strong transition-colors hover:border-accent hover:text-accent lg:inline-flex"
             >
               <Glyph name="phone" size={17} />
-              <span className="tnum">{phone.display}</span>
             </a>
 
             {NAV_SECONDARY.map((item) => (
               <Link
                 key={item.id}
                 href={item.href}
-                className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white shadow-sm shadow-red-950/20 hidden h-11 items-center rounded-sm px-5 text-sm font-medium lg:inline-flex transition-colors"
+                className="hidden h-11 items-center rounded-sm bg-red-600 px-5 text-sm font-medium text-white shadow-sm shadow-red-950/20 transition-colors hover:bg-red-700 active:bg-red-800 lg:inline-flex"
               >
                 {pick(item.label, locale)}
               </Link>
@@ -146,7 +191,7 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
               onClick={() => setSheetOpen(true)}
               aria-expanded={sheetOpen}
               aria-controls="mobile-nav-sheet"
-              className="border-line-strong inline-flex h-11 w-11 items-center justify-center rounded-sm border lg:hidden"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-sm border border-line-strong lg:hidden"
               aria-label={pick(UI.openMenu, locale)}
             >
               <Glyph name="menu" size={22} />
@@ -160,9 +205,9 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
             id={MENU_PANEL_ID}
             onMouseEnter={cancelClose}
             onMouseLeave={scheduleClose}
-            className="border-line bg-surface absolute inset-x-0 top-full hidden border-y lg:block"
+            className="absolute inset-x-0 top-full hidden border-y border-line bg-surface lg:block"
           >
-            <div className="shell grid grid-cols-[1fr_1fr_auto] gap-10 py-9">
+            <div className="shell-wide grid grid-cols-[1fr_1fr_auto] gap-10 py-9">
               {activeItem.groups.map((group) => (
                 <div key={group.id}>
                   <p className="eyebrow text-ink-subtle">{pick(group.label, locale)}</p>
@@ -171,13 +216,13 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
                       <li key={child.id}>
                         <Link
                           href={child.href}
-                          className="hover:bg-surface-sunken group -mx-3 block rounded-xs px-3 py-2.5"
+                          className="group -mx-3 block rounded-xs px-3 py-2.5 hover:bg-surface-sunken"
                         >
-                          <span className="group-hover:text-accent block text-[0.9375rem] font-medium transition-colors">
+                          <span className="block text-[0.9375rem] font-medium transition-colors group-hover:text-accent">
                             {pick(child.label, locale)}
                           </span>
                           {child.description ? (
-                            <span className="text-ink-muted mt-0.5 block text-xs">
+                            <span className="mt-0.5 block text-xs text-ink-muted">
                               {pick(child.description, locale)}
                             </span>
                           ) : null}
@@ -188,14 +233,12 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
                 </div>
               ))}
 
-              <div className="border-line w-[15rem] border-s ps-8">
+              <div className="w-[15rem] border-s border-line ps-8">
                 <p className="text-d4">{pick(UI.requestQuote, locale)}</p>
-                <p className="text-ink-muted mt-2 text-sm">
-                  {pick(activeItem.label, locale)}
-                </p>
+                <p className="mt-2 text-sm text-ink-muted">{pick(activeItem.label, locale)}</p>
                 <Link
                   href="/contact"
-                  className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white shadow-sm mt-5 inline-flex h-11 items-center rounded-sm px-5 text-sm font-medium transition-colors"
+                  className="mt-5 inline-flex h-11 items-center rounded-sm bg-red-600 px-5 text-sm font-medium text-white shadow-sm transition-colors hover:bg-red-700 active:bg-red-800"
                 >
                   {pick(UI.contact, locale)}
                 </Link>
@@ -219,14 +262,14 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
             role="dialog"
             aria-modal="true"
             aria-label={pick(UI.menu, locale)}
-            className="bg-surface absolute inset-x-0 bottom-0 max-h-[88dvh] overflow-y-auto rounded-t-xl pb-8 shadow-lg"
+            className="absolute inset-x-0 bottom-0 max-h-[88dvh] overflow-y-auto rounded-t-xl bg-surface pb-8 shadow-lg"
           >
-            <div className="border-line sticky top-0 flex items-center justify-between border-b bg-surface px-5 py-4">
+            <div className="sticky top-0 flex items-center justify-between border-b border-line bg-surface px-5 py-4">
               <span className="eyebrow">{pick(UI.menu, locale)}</span>
               <button
                 type="button"
                 onClick={() => setSheetOpen(false)}
-                className="tap border-line flex h-11 w-11 items-center justify-center rounded-sm border"
+                className="flex h-11 w-11 items-center justify-center rounded-sm border border-line tap"
                 aria-label={pick(UI.close, locale)}
               >
                 <Glyph name="close" size={20} />
@@ -236,10 +279,15 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
             <nav className="px-5 py-4" aria-label={pick(UI.menu, locale)}>
               <ul>
                 {NAV_PRIMARY.map((item) => (
-                  <li key={item.id} className="border-line border-b last:border-0">
+                  <li key={item.id} className="border-b border-line last:border-0">
                     {item.groups ? (
                       <details className="group">
-                        <summary className="flex min-h-14 cursor-pointer list-none items-center justify-between py-3 text-lg font-medium">
+                        <summary
+                          className={cn(
+                            'flex min-h-14 cursor-pointer list-none items-center justify-between py-3 text-lg font-medium',
+                            isItemActive(item.href, pathname) && 'text-accent',
+                          )}
+                        >
                           {pick(item.label, locale)}
                           <Glyph
                             name="chevron"
@@ -250,7 +298,7 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
                         <div className="pb-3">
                           <Link
                             href={item.href}
-                            className="text-accent block min-h-11 py-2 text-sm font-medium"
+                            className="block min-h-11 py-2 text-sm font-medium text-accent"
                           >
                             {pick(UI.seeAllProducts, locale)}
                           </Link>
@@ -262,7 +310,13 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
                                   <li key={child.id}>
                                     <Link
                                       href={child.href}
-                                      className="flex min-h-11 items-center py-2 text-[0.9375rem]"
+                                      aria-current={
+                                        isItemActive(child.href, pathname) ? 'page' : undefined
+                                      }
+                                      className={cn(
+                                        'flex min-h-11 items-center py-2 text-[0.9375rem]',
+                                        isItemActive(child.href, pathname) && 'text-accent',
+                                      )}
                                     >
                                       {pick(child.label, locale)}
                                     </Link>
@@ -276,7 +330,11 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
                     ) : (
                       <Link
                         href={item.href}
-                        className="flex min-h-14 items-center py-3 text-lg font-medium"
+                        aria-current={isItemActive(item.href, pathname) ? 'page' : undefined}
+                        className={cn(
+                          'flex min-h-14 items-center py-3 text-lg font-medium',
+                          isItemActive(item.href, pathname) && 'text-accent',
+                        )}
                       >
                         {pick(item.label, locale)}
                       </Link>
@@ -293,14 +351,14 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
               <div className="mt-6 grid gap-3">
                 <a
                   href={telHref(phone)}
-                  className="border-line-strong flex h-12 items-center justify-center gap-2 rounded-sm border font-medium"
+                  className="flex h-12 items-center justify-center gap-2 rounded-sm border border-line-strong font-medium"
                 >
                   <Glyph name="phone" size={18} />
                   <span className="tnum">{phone.display}</span>
                 </a>
                 <Link
                   href="/contact"
-                  className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white shadow-sm flex h-12 items-center justify-center rounded-sm font-medium transition-colors"
+                  className="flex h-12 items-center justify-center rounded-sm bg-red-600 font-medium text-white shadow-sm transition-colors hover:bg-red-700 active:bg-red-800"
                 >
                   {pick(UI.requestQuote, locale)}
                 </Link>
@@ -318,6 +376,7 @@ export const SiteHeader = ({ locale }: { readonly locale: Locale }) => {
 interface DesktopNavItemProps {
   readonly item: NavItem;
   readonly locale: Locale;
+  readonly active: boolean;
   readonly isOpen: boolean;
   readonly onOpen: () => void;
   readonly onScheduleClose: () => void;
@@ -327,6 +386,7 @@ interface DesktopNavItemProps {
 const DesktopNavItem = ({
   item,
   locale,
+  active,
   isOpen,
   onOpen,
   onScheduleClose,
@@ -338,7 +398,11 @@ const DesktopNavItem = ({
 
   if (!item.groups) {
     return (
-      <Link href={item.href} className={cn(shared, 'hover:text-accent')}>
+      <Link
+        href={item.href}
+        aria-current={active ? 'page' : undefined}
+        className={cn(shared, 'hover:text-accent', active && 'text-accent')}
+      >
         {label}
       </Link>
     );
@@ -353,7 +417,8 @@ const DesktopNavItem = ({
       onClick={onToggle}
       aria-expanded={isOpen}
       aria-controls={MENU_PANEL_ID}
-      className={cn(shared, 'hover:text-accent gap-1.5', isOpen && 'text-accent')}
+      aria-current={active ? 'page' : undefined}
+      className={cn(shared, 'gap-1.5 hover:text-accent', (isOpen || active) && 'text-accent')}
     >
       {label}
       <Glyph

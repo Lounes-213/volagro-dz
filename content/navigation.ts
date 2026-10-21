@@ -59,6 +59,11 @@ const productChildren = (family: ProductFamily): readonly NavChild[] =>
 
 export const NAV_PRIMARY: readonly NavItem[] = [
   {
+    id: 'welcome',
+    href: '/bienvenue',
+    label: { fr: 'Bienvenue', ar: 'مرحبًا بكم', en: 'Welcome' },
+  },
+  {
     id: 'home',
     href: '/',
     label: { fr: 'Accueil', ar: 'الرئيسية', en: 'Home' },
@@ -76,10 +81,7 @@ export const NAV_PRIMARY: readonly NavItem[] = [
       {
         id: 'other',
         label: { fr: 'Couvoir & Aliments', ar: 'المفقس والأعلاف', en: 'Hatchery & Feed' },
-        children: [
-          ...productChildren('chicks'),
-          ...productChildren('feed'),
-        ],
+        children: [...productChildren('chicks'), ...productChildren('feed')],
       },
       {
         id: 'cmv',

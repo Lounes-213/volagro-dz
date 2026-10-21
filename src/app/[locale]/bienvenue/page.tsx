@@ -19,7 +19,7 @@ export async function generateMetadata({
   if (!isLocale(locale)) return {};
 
   return {
-    title: pick(WELCOME.eyebrow, locale),
+    title: pick(WELCOME.greeting, locale),
     robots: { index: false, follow: true },
   };
 }

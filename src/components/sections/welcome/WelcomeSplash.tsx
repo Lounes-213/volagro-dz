@@ -6,15 +6,16 @@ import { useEffect, useState } from 'react';
 
 /**
  * Quick brand splash shown on top of the welcome screen: logo + three dots,
- * gone in ~1.6s. It is deliberately silent for assistive tech (the dots are
- * decorative) but announces the loading state through visually hidden text.
+ * gone in ~0.9s so the page's own entrance animation is revealed mid-flight.
+ * It is deliberately silent for assistive tech (the dots are decorative) but
+ * announces the loading state through visually hidden text.
  */
 export const WelcomeSplash = ({ label }: { readonly label: string }) => {
   const [visible, setVisible] = useState(true);
   const reduced = useReducedMotion();
 
   useEffect(() => {
-    const timeout = window.setTimeout(() => setVisible(false), reduced ? 500 : 1600);
+    const timeout = window.setTimeout(() => setVisible(false), reduced ? 300 : 850);
     return () => window.clearTimeout(timeout);
   }, [reduced]);
 
@@ -27,7 +28,7 @@ export const WelcomeSplash = ({ label }: { readonly label: string }) => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } }}
         >
-          <div className="flex flex-col items-center gap-8 px-6">
+          <div className="flex flex-col items-center gap-12 px-6">
             <motion.div
               initial={reduced ? false : { opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
