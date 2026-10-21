@@ -173,6 +173,22 @@ export default async function EventsPage({
         en: 'Welcoming partners and visitors at the SIPSA 2026 International Livestock & Agricultural Equipment Show, presenting advanced nutrition programs and TECHNA partnership.',
       },
     },
+    {
+      id: 'visite-techna-nantes-afrique',
+      slot: 'photo.legacy.35',
+      tag: { fr: 'Visite Industrielle', ar: 'زيارة صناعية', en: 'Industrial Visit' },
+      date: 'Nantes, France',
+      title: {
+        fr: 'Visite terrain de l’unité de production TECHNA à Nantes',
+        ar: 'زيارة ميدانية لوحدة إنتاج المركزات لمجمع تيكنا ب نانت',
+        en: 'Field visit to TECHNA premix production facility in Nantes',
+      },
+      desc: {
+        fr: 'Visite de l’unité de production de prémix et prémélanges minéraux TECHNA à Nantes, et rencontres d’échanges avec les délégations et représentants africains.',
+        ar: 'زيارة ميدانية لوحدة إنتاج المركزات الفيتامينية والمعدنية لمجمع تيكنا ب نانت، ولقاء مثمر لتبادل الخبرات مع الممثلين والشركاء الأفارقة.',
+        en: 'Field visit to TECHNA’s vitamin and mineral premix manufacturing facility in Nantes, and bilateral exchange meetings with African representatives.',
+      },
+    },
   ];
 
   return (

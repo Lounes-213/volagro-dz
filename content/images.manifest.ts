@@ -466,6 +466,90 @@ const LEGACY_SEEDS: readonly LegacySeed[] = [
       en: 'SIPSA 2026 International Livestock Expo — Group photo of the expert delegation commemorating the event (Photo 3/3).',
     },
   },
+  {
+    n: '35',
+    width: 600,
+    height: 800,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Visite terrain à l'unité de production TECHNA à Nantes — Équipe VOLAGRO et représentants africains (Photo 1/7).",
+      ar: 'زيارة ميدانية لوحدة إنتاج المركزات لمجمع تيكنا بنانت — وفد فولاڨرو والممثلين الأفارقة (صورة 1/7).',
+      en: 'Field visit to TECHNA premix production unit in Nantes — VOLAGRO team and African representatives (Photo 1/7).',
+    },
+  },
+  {
+    n: '36',
+    width: 443,
+    height: 590,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Visite de l'usine TECHNA — Photo souvenir de la délégation devant l'entrée des installations industrielles (Photo 2/7).",
+      ar: 'زيارة مصنع تيكنا — صورة تذكارية للوفد أمام المدخل الرئيسي للمنشآت الصناعية (صورة 2/7).',
+      en: 'TECHNA plant visit — Commemorative photo in front of the industrial facilities entrance (Photo 2/7).',
+    },
+  },
+  {
+    n: '37',
+    width: 590,
+    height: 272,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Visite industrielle TECHNA — Photo de groupe avec les équipements de sécurité et les équipes techniques (Photo 3/7).",
+      ar: 'الزيارة الميدانية لتيكنا — صورة جماعية مع أطقم السلامة والفرق التقنية المتخصصة (صورة 3/7).',
+      en: 'TECHNA industrial tour — Group photo with safety gear and technical specialists (Photo 3/7).',
+    },
+  },
+  {
+    n: '38',
+    width: 590,
+    height: 272,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Visite de l'unité de production — Rencontre et échanges élargis avec les experts internationaux (Photo 4/7).",
+      ar: 'زيارة وحدة الإنتاج — نقاشات وتبادل موسع للخبرات مع الشركاء الدوليين (صورة 4/7).',
+      en: 'Production unit visit — Expanded discussions and experience sharing with international partners (Photo 4/7).',
+    },
+  },
+  {
+    n: '39',
+    width: 590,
+    height: 444,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Rencontres professionnelles au salon — Synergies et discussions autour des innovations en nutrition animale (Photo 5/7).",
+      ar: 'لقاءات مهنية بالمعرض — مناقشات مثمرة وشراكات استراتيجية في مجال التغذية الحيوانية (صورة 5/7).',
+      en: 'Professional expo networking — Strategic synergies and discussions around animal nutrition breakthroughs (Photo 5/7).',
+    },
+  },
+  {
+    n: '40',
+    width: 1024,
+    height: 768,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Visite des stands partenaires CIDAPE / ITAVI — Échanges techniques sur la filière avicole (Photo 6/7).",
+      ar: 'زيارة أجنحة الشركاء CIDAPE / ITAVI — مباحثات تقنية وتطوير سلاسل إنتاج الدواجن (صورة 6/7).',
+      en: 'Visit to partner booths CIDAPE / ITAVI — Technical poultry industry discussions (Photo 6/7).',
+    },
+  },
+  {
+    n: '41',
+    width: 1024,
+    height: 768,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Stand Polifar — Discussions sur les additifs, acides aminés et minéraux de haute précision (Photo 7/7).",
+      ar: 'جناح Polifar — مباحثات حول مضافات الأعلاف، الأحماض الأمينية والمعادن الدقيقة (صورة 7/7).',
+      en: 'Polifar exhibition booth — Discussions on feed additives, amino acids, and high-precision minerals (Photo 7/7).',
+    },
+  },
 ];
 
 const LEGACY_PHOTOS: readonly ManifestEntry[] = LEGACY_SEEDS.map((seed) => ({
