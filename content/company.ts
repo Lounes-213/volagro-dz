@@ -98,9 +98,9 @@ export const KEY_FIGURES: readonly KeyFigure[] = [
   },
   {
     id: 'chicks',
-    value: 20_000_000,
+    value: 20,
     kind: 'quantity',
-    suffix: { fr: 'poussins/an', ar: 'كتكوت/سنة', en: 'chicks/year' },
+    suffix: { fr: 'millions / an', ar: 'مليون / سنة', en: 'million / year' },
     label: { fr: 'Capacité couvoir', ar: 'طاقة المفقس', en: 'Hatchery capacity' },
     caption: {
       fr: "Poussins d'un jour chair",

@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation';
 
 import {
   IDENTITY,
-  KEY_FIGURES,
   MAP_SITES,
   TAGLINE,
 } from '@content/company';
@@ -13,6 +12,7 @@ import { Glyph } from '@/components/icons/Glyph';
 import { LOCALES, isLocale } from '@/lib/i18n/config';
 import { VideoCardsGrid } from '@/components/sections/VideoCardsGrid';
 import { AboutHeroHeader } from '@/components/sections/about/AboutHeroHeader';
+import { AboutKeyFigures } from '@/components/sections/about/AboutKeyFigures';
 
 export function generateStaticParams(): { locale: string }[] {
   return LOCALES.map((locale) => ({ locale }));
@@ -131,23 +131,8 @@ export default async function AboutPage({
       <div className="py-12 md:py-16">
         <div className="shell">
 
-        {/* ── Key Figures Band ─────────────────────────────────────────────── */}
-        <div className="border-line bg-surface rounded-none mt-12 grid gap-6 border p-6 sm:grid-cols-2 lg:grid-cols-4 shadow-xs">
-          {KEY_FIGURES.map((fig) => (
-            <div key={fig.id} className="border-line/60 sm:border-e sm:last:border-none sm:pe-6">
-              <span className="text-xs font-semibold text-green-700">
-                {pick(fig.label, locale)}
-              </span>
-              <p className="font-display text-d2 text-ink mt-2">
-                {fig.kind === 'year' ? fig.value : fig.value.toLocaleString()}
-                {fig.suffix ? <span className="text-sm font-sans ms-1 text-ink-subtle">{pick(fig.suffix, locale)}</span> : null}
-              </p>
-              {fig.caption ? (
-                <p className="text-ink-subtle text-xs mt-1">{pick(fig.caption, locale)}</p>
-              ) : null}
-            </div>
-          ))}
-        </div>
+        {/* ── Key Figures Band (Animé & sans chevauchement) ───────────────── */}
+        <AboutKeyFigures locale={locale} />
 
         {/* ── Timeline Section ─────────────────────────────────────────────── */}
         <div className="mt-16">
