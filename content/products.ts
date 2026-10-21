@@ -273,9 +273,9 @@ export const PRODUCTS: readonly Product[] = [
       en: 'Mineral and vitamin supplement for laying hens',
     },
     target: {
-      fr: 'Poules pondeuses en phase de production.',
-      ar: 'الدجاج البيّاض في مرحلة الإنتاج.',
-      en: 'Laying hens in the production phase.',
+      fr: 'Poules pondeuses en élevage et en phase de production.',
+      ar: 'الدجاج البيّاض في مرحلة التربية والإنتاج.',
+      en: 'Laying hens in the rearing and production phase.',
     },
     summary: {
       fr: "Prémélange minéral et vitaminé destiné à l'alimentation des poules pondeuses.",
@@ -321,9 +321,9 @@ export const PRODUCTS: readonly Product[] = [
       en: 'Mineral and vitamin supplement for broiler breeders',
     },
     target: {
-      fr: 'Poules reproductrices de chair et coqs.',
-      ar: 'أمهات دجاج اللحم والديوك.',
-      en: 'Broiler breeder hens and cockerels.',
+      fr: 'Poules reproductrices de chair et coqs, en élevage et en phase de production.',
+      ar: 'أمهات دجاج اللحم والديوك، في مرحلة التربية والإنتاج.',
+      en: 'Broiler breeder hens and cockerels, in the rearing and production phase.',
     },
     summary: {
       fr: "Prémélange minéral et vitaminé destiné à l'alimentation des reproducteurs de chair.",
@@ -369,9 +369,9 @@ export const PRODUCTS: readonly Product[] = [
       en: 'Mineral and vitamin supplement for turkeys',
     },
     target: {
-      fr: 'Dindes de chair.',
-      ar: 'الديك الرومي للتسمين.',
-      en: 'Meat turkeys.',
+      fr: 'Dindes de chair, toutes les phases de l\'elevage.',
+      ar: 'الديك الرومي للتسمين، جميع مراحل التربية.',
+      en: 'Meat turkeys, all phases of rearing.',
     },
     summary: {
       fr: "Prémélange minéral et vitaminé destiné à l'alimentation des dindes.",
@@ -400,7 +400,7 @@ export const PRODUCTS: readonly Product[] = [
       ar: 'مكمّل معدني وفيتاميني للأبقار والأغنام',
       en: 'Mineral and vitamin supplement for cattle and sheep',
     },
-    target: { fr: 'Bovins et ovins.', ar: 'الأبقار والأغنام.', en: 'Cattle and sheep.' },
+    target: { fr: 'Bovins, ovins et caprins.', ar: 'الأبقار والأغنام والماعز.', en: 'Cattle, sheep and goats.' },
     summary: {
       fr: "Prémélange minéral et vitaminé destiné à l'alimentation des ruminants.",
       ar: 'مكمّل معدني وفيتاميني مخصّص لتغذية المجترات.',
@@ -461,9 +461,9 @@ export const PRODUCTS: readonly Product[] = [
       en: 'Mineral and vitamin supplement for dairy cows',
     },
     target: {
-      fr: 'Vaches laitières en lactation.',
-      ar: 'الأبقار الحلوب خلال فترة الحلابة.',
-      en: 'Dairy cows in lactation.',
+      fr: 'Vaches laitières, en élevage et en lactation.',
+      ar: 'الأبقار الحلوب خلال فترة التربية و الحلابة.',
+      en: 'Dairy cows in breeding and lactation.',
     },
     summary: {
       fr: "Prémélange minéral et vitaminé destiné à l'alimentation des vaches laitières.",
@@ -525,9 +525,9 @@ export const PRODUCTS: readonly Product[] = [
       en: 'Day-old broiler chicks',
     },
     target: {
-      fr: 'Éleveurs de poulets de chair, bâtiments de démarrage.',
-      ar: 'مربّو دجاج اللحم، عنابر الانطلاق.',
-      en: 'Broiler farmers, brooding houses.',
+      fr: 'Éleveurs de poulets de chair.',
+      ar: 'مربّو دجاج اللحم.',
+      en: 'Broiler farmers.',
     },
     summary: {
       fr: "Production de poussins d'un jour de poulet de chair, avec une capacité de 20 000 000 de poussins par an.",
@@ -579,11 +579,15 @@ export const PRODUCTS: readonly Product[] = [
     icon: 'pellet',
     image: SPECIES_IMAGES.pellet,
     name: { fr: 'Aliments', ar: 'الأعلاف', en: 'Feed' },
-    fullName: { fr: "Fabrication d'aliments", ar: 'صناعة الأعلاف', en: 'Feed manufacturing' },
+    fullName: {
+      fr: "Fabrication d'aliments pour autoconsommation",
+      ar: 'صناعة الأعلاف للاستهلاك الذاتي',
+      en: 'Feed manufacturing for internal consumption'
+    },
     target: {
-      fr: 'Éleveurs de volailles et de ruminants.',
-      ar: 'مربّو الدواجن والمجترات.',
-      en: 'Poultry and ruminant farmers.',
+      fr: 'Autoconsommation (besoins internes de nos élevages).',
+      ar: 'الاستهلاك الذاتي (لتغطية احتياجات مزارعنا).',
+      en: 'Internal consumption (for our own livestock farms).',
     },
     summary: {
       fr: "Fabrication d'aliments pour les filières animales, activité historique de VOLAGRO depuis 1998.",

@@ -8,10 +8,11 @@ import {
   TAGLINE,
 } from '@content/company';
 import { pick } from '@content/types';
-import { SectionHeading } from '@/components/ui/SectionHeading';
 import { ButtonLink } from '@/components/ui/Button';
 import { Glyph } from '@/components/icons/Glyph';
 import { LOCALES, isLocale } from '@/lib/i18n/config';
+import { VideoCardsGrid } from '@/components/sections/VideoCardsGrid';
+import { AboutHeroHeader } from '@/components/sections/about/AboutHeroHeader';
 
 export function generateStaticParams(): { locale: string }[] {
   return LOCALES.map((locale) => ({ locale }));
@@ -65,7 +66,7 @@ export default async function AboutPage({
     },
     sitesTitle: { fr: 'Nos sites industriels', ar: 'مواقعنا ومنشآتنا', en: 'Our Industrial Sites' },
     milestonesTitle: { fr: 'Les grandes étapes', ar: 'محطات التطوير', en: 'Key Milestones' },
-    contactCta: { fr: 'Prendre contact', ar: 'اتصل بنا', en: 'Get in touch' },
+    overviewCta: { fr: "Vue d'ensemble", ar: 'نظرة عامة', en: 'Overview' },
   };
 
   const milestones = [
@@ -99,17 +100,39 @@ export default async function AboutPage({
   ];
 
   return (
-    <div className="py-12 md:py-16">
-      <div className="shell">
-        <SectionHeading
+    <div>
+      {/* ── Hero d'introduction avec fond animé cinématographique ─────── */}
+      <section className="relative isolate overflow-hidden bg-charcoal-950 py-16 text-cream md:py-20">
+        <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+            poster="/images/real/legacy-01.jpg"
+            className="pointer-events-none absolute inset-0 h-full w-full scale-[1.03] object-cover object-center brightness-[0.72] contrast-[1.08] saturate-[1.12]"
+          >
+            <source src="/videos/ved_bg.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal-950/90 via-charcoal-950/70 to-charcoal-950/50" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_25%,rgba(220,38,38,0.22)_0%,transparent_70%)]" />
+          <div className="absolute inset-x-0 top-0 h-[3px] bg-gradient-to-r from-transparent via-red-500 to-transparent shadow-[0_0_12px_rgba(220,38,38,0.8)]" />
+        </div>
+
+        <AboutHeroHeader
           eyebrow={pick(labels.eyebrow, locale)}
           title={pick(labels.title, locale)}
           lead={pick(labels.lead, locale)}
           locale={locale}
         />
+      </section>
+
+      <div className="py-12 md:py-16">
+        <div className="shell">
 
         {/* ── Key Figures Band ─────────────────────────────────────────────── */}
-        <div className="border-line bg-surface rounded-card mt-12 grid gap-6 border p-6 sm:grid-cols-2 lg:grid-cols-4 shadow-xs">
+        <div className="border-line bg-surface rounded-none mt-12 grid gap-6 border p-6 sm:grid-cols-2 lg:grid-cols-4 shadow-xs">
           {KEY_FIGURES.map((fig) => (
             <div key={fig.id} className="border-line/60 sm:border-e sm:last:border-none sm:pe-6">
               <span className="text-xs font-semibold text-green-700">
@@ -129,20 +152,21 @@ export default async function AboutPage({
         {/* ── Timeline Section ─────────────────────────────────────────────── */}
         <div className="mt-16">
           <div className="border-b border-line pb-4">
-            <h3 className="font-display text-d3 text-ink flex items-center gap-2.5">
-              <span className="h-2 w-2 rounded-full bg-green-600" />
-              <span>{pick(labels.milestonesTitle, locale)}</span>
-            </h3>
+            <div className="border-s-2 border-green-700 ps-3">
+              <h3 className="font-display text-d3 text-ink">
+                {pick(labels.milestonesTitle, locale)}
+              </h3>
+            </div>
           </div>
 
           <div className="mt-10 grid gap-8 md:grid-cols-3">
             {milestones.map((m) => (
               <div
                 key={m.year}
-                className="bg-surface rounded-card border-line relative flex flex-col justify-between border p-6 shadow-xs"
+                className="bg-surface rounded-none border-line relative flex flex-col justify-between border p-6 shadow-xs"
               >
                 <div>
-                  <span className="inline-block rounded-full bg-green-50 border border-green-200 px-3 py-1 font-mono text-sm font-bold text-green-800">
+                  <span className="inline-block rounded-none bg-green-50 border border-green-200 px-3 py-1 font-mono text-sm font-bold text-green-800">
                     {m.year}
                   </span>
                   <h4 className="font-display text-d4 text-ink mt-4">
@@ -157,12 +181,35 @@ export default async function AboutPage({
           </div>
         </div>
 
-        {/* ── Industrial Sites ─────────────────────────────────────────────── */}
+        {/* ── Reportages & Vidéos Officielles de l'Entreprise ─────────────── */}
         <div className="mt-16">
           <div className="border-b border-line pb-4">
-            <h3 className="font-display text-d3 text-ink flex items-center gap-2.5">
-              <span className="h-2 w-2 rounded-full bg-green-600" />
-              <span>{pick(labels.sitesTitle, locale)}</span>
+            <span className="border-s-2 border-red-600 ps-2.5 text-xs font-bold uppercase tracking-wider text-red-600 inline-block">
+              {locale === 'ar' ? 'فيديوهات وتغطيات الميدان' : 'Médiathèque & Savoir-faire'}
+            </span>
+            <h3 className="font-display text-d3 text-ink mt-2">
+              {locale === 'ar'
+                ? 'فيديوهات حصرية: التأسيس والتغذية الدقيقة للحيوانات'
+                : 'Vidéos de Référence : De la fondation aux solutions de nutrition'}
+            </h3>
+            <p className="text-ink-muted text-sm mt-1">
+              {locale === 'ar'
+                ? 'استكشف بالفيديو منشآتنا الصناعية، وحلول CMV المتخصصة لدجاج التسمين، الأبقار الحلوب، الأغنام، الماعز والخيول.'
+                : 'Visionnez nos présentations institutionnelles et nos dossiers techniques sur le rôle crucial des CMV pour chaque espèce d’élevage.'}
+            </p>
+          </div>
+
+          <VideoCardsGrid locale={locale} />
+        </div>
+
+        {/* ── Industrial Sites (Placés sous les vidéos) ────────────────────── */}
+        <div className="mt-16">
+          <div className="border-b border-line pb-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-green-700">
+              {locale === 'ar' ? 'البنية التحتية والإنتاج' : 'Infrastructures & Capacités'}
+            </span>
+            <h3 className="font-display text-d3 text-ink mt-1">
+              {pick(labels.sitesTitle, locale)}
             </h3>
           </div>
 
@@ -170,13 +217,13 @@ export default async function AboutPage({
             {MAP_SITES.map((site) => (
               <div
                 key={site.id}
-                className="bg-surface rounded-card border-line border p-6 shadow-xs"
+                className="bg-surface rounded-none border-line border p-6 shadow-xs transition-colors hover:border-red-400"
               >
-                <div className="flex items-center gap-2.5 text-green-700">
-                  <Glyph name="pin" size={18} />
-                  <span className="text-xs font-semibold uppercase tracking-wider">Site d'exploitation</span>
+                <div className="flex items-center gap-2 text-green-800">
+                  <Glyph name="pin" size={17} />
+                  <span className="text-xs font-bold uppercase tracking-wider">Site d'exploitation</span>
                 </div>
-                <h4 className="font-display text-d4 text-ink mt-3">
+                <h4 className="font-display text-d4 text-ink mt-3 font-bold">
                   {site.name}
                 </h4>
                 <p className="text-ink-muted mt-2 text-xs leading-relaxed">
@@ -197,11 +244,12 @@ export default async function AboutPage({
               {pick(TAGLINE, locale)}
             </p>
           </div>
-          <ButtonLink href="/contact" size="lg">
-            {pick(labels.contactCta, locale)}
+          <ButtonLink href="/" size="lg">
+            {pick(labels.overviewCta, locale)}
           </ButtonLink>
         </div>
       </div>
     </div>
+  </div>
   );
 }

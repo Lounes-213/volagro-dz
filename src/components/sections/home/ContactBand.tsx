@@ -25,14 +25,17 @@ export const ContactBand = ({ locale }: { readonly locale: Locale }) => {
     <section className="theme-ink" aria-labelledby="contact-band-title">
       <div className="shell grid gap-12 py-16 lg:grid-cols-[1fr_1.15fr] lg:gap-16 lg:py-20">
         <div>
-          <p className="eyebrow text-cream/60 marker">
-            <span className="marker-tick" aria-hidden="true" />
-            {pick(UI.contact, locale)}
-          </p>
-          <h2 id="contact-band-title" className="text-d2 text-cream mt-6 text-balance">
+          <div className="border-b border-white/10 pb-4">
+            <div className="inline-block border-s-2 border-red-500 ps-3 py-0.5">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-red-400">
+                {pick(UI.contact, locale)}
+              </span>
+            </div>
+          </div>
+          <h2 id="contact-band-title" className="font-display text-d2 text-cream mt-6 text-balance font-bold">
             {pick(UI.contactBandTitle, locale)}
           </h2>
-          <p className="text-cream/70 mt-5 max-w-[46ch]">{pick(UI.contactBandBody, locale)}</p>
+          <p className="text-cream/70 mt-4 max-w-[46ch] text-base leading-relaxed">{pick(UI.contactBandBody, locale)}</p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <ButtonLink href="/contact" icon={<Glyph name="mail" size={18} />}>

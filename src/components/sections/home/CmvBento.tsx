@@ -45,9 +45,9 @@ const FAMILY_BADGES: Record<string, FamilyMeta> = {
     style: 'text-amber-700 bg-amber-50 border-amber-200/70',
   },
   feed: {
-    label: { fr: 'Alimentation animale', ar: 'أعلاف حيوانية', en: 'Animal feed' },
-    badge: { fr: 'Vrac & Sac', ar: 'سائب وأكياس', en: 'Bulk & Bag' },
-    style: 'text-emerald-800 bg-emerald-50 border-emerald-200/70',
+    label: { fr: 'Unité Aliments', ar: 'مصنع الأعلاف', en: 'Feed Unit' },
+    badge: { fr: 'Autoconsommation', ar: 'للاستهلاك الذاتي', en: 'Internal Use' },
+    style: 'text-amber-800 bg-amber-50 border-amber-300',
   },
 };
 
@@ -119,8 +119,7 @@ export const CmvBento = ({ locale }: { readonly locale: Locale }) => {
 
                   {/* Bottom title highlight on mobile/hover */}
                   <div className="absolute bottom-3 start-3 end-3 flex items-center gap-1.5">
-                    <span className="h-2 w-2 rounded-full bg-red-500 shadow-[0_0_6px_rgba(239,68,68,0.9)]" />
-                    <span className="text-[11px] font-medium text-cream/90 truncate">
+                    <span className="text-[11px] font-semibold text-cream/90 truncate tracking-wide">
                       SARL VOLAGRO · Algérie
                     </span>
                   </div>

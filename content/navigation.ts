@@ -64,14 +64,18 @@ export const NAV_PRIMARY: readonly NavItem[] = [
     label: { fr: 'Bienvenue', ar: 'مرحبًا بكم', en: 'Welcome' },
   },
   {
-    id: 'home',
-    href: '/',
-    label: { fr: 'Accueil', ar: 'الرئيسية', en: 'Home' },
-  },
-  {
     id: 'about',
     href: '/a-propos',
-    label: { fr: "L'entreprise", ar: 'المؤسسة', en: 'Company' },
+    label: {
+      fr: "Présentation de l'entreprise",
+      ar: 'تقديم المؤسسة',
+      en: 'Company Presentation',
+    },
+  },
+  {
+    id: 'home',
+    href: '/',
+    label: { fr: "Vue d'ensemble", ar: 'نظرة عامة', en: 'Overview' },
   },
   {
     id: 'products',
@@ -136,7 +140,11 @@ export const FOOTER_COLUMNS: readonly NavGroup[] = [
       {
         id: 'about',
         href: '/a-propos',
-        label: { fr: "L'entreprise", ar: 'المؤسسة', en: 'Company' },
+        label: {
+          fr: "Présentation de l'entreprise",
+          ar: 'تقديم المؤسسة',
+          en: 'Company Presentation',
+        },
       },
       {
         id: 'expertise',

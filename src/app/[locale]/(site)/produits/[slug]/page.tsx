@@ -137,73 +137,111 @@ export default async function ProductDetailPage({
             </div>
           </div>
 
-          {/* Quick order card */}
-          <div className="bg-surface-sunken rounded-card border-line flex flex-col justify-between border p-6 lg:col-span-4 card-interactive">
-            <div>
-              <div className="flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-700">
-                  <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-ping" />
-                  Commande & Disponibilité
-                </span>
-                {product.family === 'cmv' && (
-                  <span className="rounded-full bg-green-100 text-green-800 px-2 py-0.5 text-[10px] font-bold">
-                    Sac 25 kg
+          {/* Quick order card / Internal consumption notice */}
+          <div className="bg-surface-sunken rounded-none border-line flex flex-col justify-between border p-6 lg:col-span-4 card-interactive">
+            {product.slug === 'aliments' ? (
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="inline-block border-s-2 border-amber-600 ps-2 text-xs font-bold uppercase tracking-wider text-amber-800">
+                    {locale === 'ar' ? 'استخدام داخلي حصري' : 'Usage interne exclusif'}
                   </span>
-                )}
-              </div>
-
-              {product.family === 'cmv' && (
-                <div className="relative mt-3 aspect-4/3 w-full overflow-hidden rounded-md border border-line bg-charcoal-900 group">
-                  <Image
-                    src="/images/products/cmv-sack-open.jpg"
-                    alt={`${pick(product.name, locale)} — Conditionnement sac 25 kg`}
-                    fill
-                    sizes="(min-width: 1024px) 25vw, 90vw"
-                    className="img-zoom object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/70 via-transparent to-transparent opacity-50" />
-                  <span className="absolute bottom-2 start-2 text-[10px] font-semibold text-cream bg-charcoal-900/80 px-2 py-0.5 rounded-xs backdrop-blur-xs">
-                    VOLAGRO CMV · 25 kg
+                  <span className="bg-amber-100 text-amber-900 px-2 py-0.5 text-[10px] font-bold">
+                    {locale === 'ar' ? 'غير مخصص للبيع' : 'Non commercialisé'}
                   </span>
                 </div>
-              )}
 
-              <p className="font-display text-d4 text-ink mt-3">
-                Approvisionnement régulier
-              </p>
-              <p className="text-ink-muted mt-1 text-xs leading-relaxed">
-                Produit formulé dans notre unité industrielle à Tala Athmane (Tizi-Ouzou) en partenariat avec TECHNA.
-              </p>
-            </div>
+                <p className="font-display text-d4 text-ink mt-4 font-bold">
+                  {locale === 'ar' ? 'إنتاج مخصص للاستهلاك الذاتي' : 'Production dédiée à nos élevages'}
+                </p>
+                <p className="text-ink-muted mt-2 text-xs leading-relaxed">
+                  {locale === 'ar'
+                    ? 'هذا المنتوج مصنّع خصيصاً لتغطية الاحتياجات الغذائية الداخلية لمزارع ومحطات تربية فولاغرو، ولا يخضع للطلبات التجارية الخارجية.'
+                    : 'Les aliments fabriqués par notre unité industrielle sont exclusivement réservés à l’autoconsommation et aux besoins nutritionnels de nos propres élevages intégrés.'}
+                </p>
 
-            <div className="mt-6 pt-4 border-t border-line">
-              <a
-                href={whatsappHref(WHATSAPP_TARGET, {
-                  message: `Bonjour VOLAGRO, je souhaite obtenir les tarifs et disponibilités pour : ${pick(product.name, locale)}.`,
-                })}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-green-700 hover:bg-green-800 text-white inline-flex w-full items-center justify-center gap-2 rounded-sm py-3 text-xs font-semibold transition-all shadow-xs hover:scale-[1.02] active:scale-[0.98]"
-              >
-                <Glyph name="whatsapp" size={17} />
-                <span>{pick(labels.orderCta, locale)}</span>
-              </a>
-            </div>
+                <div className="mt-6 border-s-2 border-green-600 bg-surface p-4 border-t border-e border-b border-line">
+                  <p className="text-xs font-semibold text-ink leading-relaxed">
+                    {locale === 'ar'
+                      ? 'لطلب مكمّلات الـ CMV المخصصة لتحضير أعلافكم، يُرجى الاطلاع على تشكيلة Prémélanges CMV.'
+                      : 'Pour composer vos propres aliments à la ferme, découvrez notre gamme de Prémélanges CMV formulés avec TECHNA.'}
+                  </p>
+                  <Link
+                    href="/produits"
+                    className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-red-600 hover:text-red-700 hover:underline"
+                  >
+                    {locale === 'ar' ? 'استكشاف مكملات CMV المتاحة' : 'Voir les CMV disponibles'} &rarr;
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-green-700">
+                      <span className="h-1.5 w-1.5 rounded-full bg-green-500 animate-ping" />
+                      Commande & Disponibilité
+                    </span>
+                    {product.family === 'cmv' && (
+                      <span className="rounded-none bg-green-100 text-green-800 px-2 py-0.5 text-[10px] font-bold">
+                        Sac 25 kg
+                      </span>
+                    )}
+                  </div>
+
+                  {product.family === 'cmv' && (
+                    <div className="relative mt-3 aspect-4/3 w-full overflow-hidden rounded-none border border-line bg-charcoal-900 group">
+                      <Image
+                        src="/images/products/cmv-sack-open.jpg"
+                        alt={`${pick(product.name, locale)} — Conditionnement sac 25 kg`}
+                        fill
+                        sizes="(min-width: 1024px) 25vw, 90vw"
+                        className="img-zoom object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-charcoal-950/70 via-transparent to-transparent opacity-50" />
+                      <span className="absolute bottom-2 start-2 text-[10px] font-semibold text-cream bg-charcoal-900/80 px-2 py-0.5 rounded-none backdrop-blur-xs">
+                        VOLAGRO CMV · 25 kg
+                      </span>
+                    </div>
+                  )}
+
+                  <p className="font-display text-d4 text-ink mt-3">
+                    Approvisionnement régulier
+                  </p>
+                  <p className="text-ink-muted mt-1 text-xs leading-relaxed">
+                    Produit formulé dans notre unité industrielle à Tala Athmane (Tizi-Ouzou) en partenariat avec TECHNA.
+                  </p>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-line">
+                  <a
+                    href={whatsappHref(WHATSAPP_TARGET, {
+                      message: `Bonjour VOLAGRO, je souhaite obtenir les tarifs et disponibilités pour : ${pick(product.name, locale)}.`,
+                    })}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-green-700 hover:bg-green-800 text-white inline-flex w-full items-center justify-center gap-2 rounded-none py-3 text-xs font-semibold transition-all shadow-xs hover:scale-[1.02] active:scale-[0.98]"
+                  >
+                    <Glyph name="whatsapp" size={17} />
+                    <span>{pick(labels.orderCta, locale)}</span>
+                  </a>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
         {/* ── Technical specs list ─────────────────────────────────────────── */}
         <div className="mt-12">
-          <h2 className="font-display text-d3 text-ink mb-6 flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-green-600" />
-            <span>{pick(labels.specsTitle, locale)}</span>
-          </h2>
+          <div className="border-s-2 border-green-700 ps-3 mb-6">
+            <h2 className="font-display text-d3 text-ink">
+              {pick(labels.specsTitle, locale)}
+            </h2>
+          </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            <div className="bg-surface rounded-card border-line border p-6 card-interactive">
-              <h3 className="font-display text-d4 text-ink flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-600" />
-                <span>{pick(labels.composition, locale)}</span>
+            <div className="bg-surface rounded-none border-line border p-6 card-interactive">
+              <h3 className="font-display text-d4 text-ink border-s-2 border-green-600 ps-2.5">
+                {pick(labels.composition, locale)}
               </h3>
               <p className="text-ink-muted mt-3 text-sm leading-relaxed">
                 {product.composition.status === 'ready'
@@ -212,10 +250,9 @@ export default async function ProductDetailPage({
               </p>
             </div>
 
-            <div className="bg-surface rounded-card border-line border p-6 card-interactive">
-              <h3 className="font-display text-d4 text-ink flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-600" />
-                <span>{pick(labels.dosage, locale)}</span>
+            <div className="bg-surface rounded-none border-line border p-6 card-interactive">
+              <h3 className="font-display text-d4 text-ink border-s-2 border-green-600 ps-2.5">
+                {pick(labels.dosage, locale)}
               </h3>
               <p className="text-ink-muted mt-3 text-sm leading-relaxed">
                 {product.dosage.status === 'ready'
@@ -224,10 +261,9 @@ export default async function ProductDetailPage({
               </p>
             </div>
 
-            <div className="bg-surface rounded-card border-line border p-6 card-interactive">
-              <h3 className="font-display text-d4 text-ink flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-green-600" />
-                <span>{pick(labels.packaging, locale)}</span>
+            <div className="bg-surface rounded-none border-line border p-6 card-interactive">
+              <h3 className="font-display text-d4 text-ink border-s-2 border-green-600 ps-2.5">
+                {pick(labels.packaging, locale)}
               </h3>
               {product.family === 'cmv' ? (
                 <div className="mt-3 text-sm text-ink-muted space-y-2">

@@ -2,14 +2,13 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import {
-  CATEGORY_ORDER,
   GALLERY_PHOTOS,
   type PhotoCategory,
 } from '@content/images.manifest';
 import { pick } from '@content/types';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { LOCALES, isLocale } from '@/lib/i18n/config';
-import { GalleryGridWithLightbox } from '@/components/gallery/GalleryGridWithLightbox';
+import { MediaExplorer } from '@/components/gallery/MediaExplorer';
 
 export function generateStaticParams(): { locale: string }[] {
   return LOCALES.map((locale) => ({ locale }));
@@ -82,25 +81,7 @@ export default async function GalleryPage({
           locale={locale}
         />
 
-        {/* ── Category tabs overview ───────────────────────────────────────── */}
-        <div className="border-line mt-10 flex flex-wrap gap-2 border-b pb-4">
-          <span className="rounded-full bg-green-700 text-white px-3.5 py-1 text-xs font-semibold shadow-xs">
-            {pick(labels.all, locale)} ({GALLERY_PHOTOS.length})
-          </span>
-          {CATEGORY_ORDER.map((cat) => {
-            const count = GALLERY_PHOTOS.filter((p) => p.category === cat).length;
-            return (
-              <span
-                key={cat}
-                className="rounded-full border border-line bg-surface text-ink-muted hover:border-green-600 hover:text-green-700 px-3 py-1 text-xs font-medium transition-colors"
-              >
-                {pick(categoryLabels[cat], locale)} ({count})
-              </span>
-            );
-          })}
-        </div>
-
-        <GalleryGridWithLightbox
+        <MediaExplorer
           photos={GALLERY_PHOTOS}
           locale={locale}
           categoryLabels={categoryLabels}
@@ -108,11 +89,8 @@ export default async function GalleryPage({
         />
 
         {/* ── Editorial note ───────────────────────────────────────────────── */}
-        <div className="bg-surface-sunken rounded-card border-line mt-16 border p-6 md:p-8">
+        <div className="bg-surface-sunken rounded-none border-s-4 border-green-700 border-t border-e border-b border-line mt-16 p-6 md:p-8">
           <div className="flex items-start gap-3.5">
-            <span className="rounded-full bg-green-100 p-2 text-green-800 shrink-0">
-              <span className="block h-2 w-2 rounded-full bg-green-600" />
-            </span>
             <div>
               <h4 className="font-display text-d4 text-ink">
                 {pick(

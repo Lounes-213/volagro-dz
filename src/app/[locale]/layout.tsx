@@ -136,11 +136,6 @@ export default async function LocaleLayout({
   return (
     <html lang={meta.htmlLang} dir={meta.direction} className={fontClassName}>
       <body className="bg-surface text-ink antialiased">
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `try{if('scrollRestoration' in history){history.scrollRestoration='manual';}}catch(e){}`,
-          }}
-        />
         <ScrollToTopOnMount />
         {/* Reveal animations start at opacity 0. If JavaScript never runs, that
             leaves the whole page blank — an SEO and accessibility failure that no

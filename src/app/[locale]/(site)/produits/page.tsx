@@ -119,11 +119,12 @@ export default async function ProductsPage({
               <section key={family.id} aria-labelledby={`family-${family.id}`}>
                 <div className="border-b border-line pb-4 flex items-end justify-between">
                   <div>
-                    <h3 id={`family-${family.id}`} className="font-display text-d3 text-ink flex items-center gap-2.5">
-                      <span className="h-2 w-2 rounded-full bg-green-600" />
-                      <span>{pick(family.label, locale)}</span>
-                    </h3>
-                    <p className="text-ink-muted mt-1 text-sm max-w-[55ch]">
+                    <div className="border-s-2 border-green-700 ps-3">
+                      <h3 id={`family-${family.id}`} className="font-display text-d3 text-ink">
+                        {pick(family.label, locale)}
+                      </h3>
+                    </div>
+                    <p className="text-ink-muted mt-2 text-sm max-w-[55ch]">
                       {pick(family.description, locale)}
                     </p>
                   </div>

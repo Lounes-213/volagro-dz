@@ -5,7 +5,6 @@ import { GALLERY_PHOTOS, type PhotoCategory } from '@content/images.manifest';
 import { GALLERY_TEASER } from '@content/home';
 import { UI } from '@content/ui';
 import { pick } from '@content/types';
-import Image from 'next/image';
 import { Figure } from '@/components/ui/Figure';
 import { InlineLink } from '@/components/ui/Button';
 import { Reveal, RevealItem } from '@/components/motion/Reveal';
@@ -112,15 +111,16 @@ export const GalleryTeaser = ({ locale }: { readonly locale: Locale }) => {
 
         {/* A tile that explains what the remaining frames are, rather than
             stretching a photograph to fill a hole in the grid. */}
-        <RevealItem className="bg-charcoal-800 text-cream relative flex flex-col justify-between rounded-card p-5">
-          <div className="relative h-10 w-10 overflow-hidden rounded-lg border border-cream/20 shadow-xs">
-            <Image
-              src="/images/species/chick.jpg"
-              alt="Volagro Galerie"
-              fill
-              className="object-cover"
-              sizes="40px"
-            />
+        <RevealItem className="bg-charcoal-800 text-cream relative flex flex-col justify-between rounded-none border border-white/10 p-5">
+          <div className="flex h-10 w-10 items-center justify-center border border-red-500/40 bg-red-600/10 text-red-400">
+            <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.8}
+                d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
+            </svg>
           </div>
           <div>
             <p className="font-display text-d4 text-cream">

@@ -134,9 +134,9 @@ export const CallChoiceModal = ({ locale }: { readonly locale: Locale }) => {
               <p className="text-ink-muted text-[11px] sm:text-xs leading-snug mt-1 mb-3 sm:mb-4">
                 {pick(
                   {
-                    fr: 'Commandes de poussins d’un jour, prémélanges CMV, aliments et devis rapides.',
-                    ar: 'طلبات الكتاكيت عمر يوم واحد، مكملات CMV، الأعلاف والتسعيرة الفورية.',
-                    en: 'Day-old broiler chicks, CMV premixes, feed orders and quick quotes.',
+                    fr: 'Commandes de poussins d’un jour chair, prémélanges CMV et devis rapides.',
+                    ar: 'طلبات كتاكيت دجاج التسمين، مكملات الـ CMV والتسعيرة الفورية.',
+                    en: 'Day-old broiler chicks, CMV premixes orders and quick quotes.',
                   },
                   locale,
                 )}

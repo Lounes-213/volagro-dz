@@ -113,10 +113,13 @@ export const KeyFigures = ({ locale }: { readonly locale: Locale }) => {
 
   return (
     <section className="shell section-tight" aria-labelledby="key-figures-title">
-      <h2 id="key-figures-title" className="eyebrow marker">
-        <span className="marker-tick" aria-hidden="true" />
-        {pick(UI.keyFiguresTitle, locale)}
-      </h2>
+      <div className="border-b border-line pb-4">
+        <div className="inline-block border-s-2 border-red-600 ps-3 py-0.5">
+          <h2 id="key-figures-title" className="text-xs font-bold uppercase tracking-[0.2em] text-red-600">
+            {pick(UI.keyFiguresTitle, locale)}
+          </h2>
+        </div>
+      </div>
 
       {/* `gap-px` over a token border colour draws the rules as gaps rather than
           borders, so they stay continuous and mirror in RTL for free. */}

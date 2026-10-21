@@ -4,16 +4,14 @@ import Image from 'next/image';
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { IDENTITY, KEY_FIGURES, PRIMARY_PHONE, SITE_ADDRESS } from '@content/company';
+import { IDENTITY, PRIMARY_PHONE, SITE_ADDRESS } from '@content/company';
 import { pick } from '@content/types';
-import { WELCOME } from '@content/welcome';
+import { WELCOME, WELCOME_MESSAGE } from '@content/welcome';
 import { Glyph } from '@/components/icons/Glyph';
 import { WelcomeSplash } from '@/components/sections/welcome/WelcomeSplash';
-import { Button } from '@/components/ui/Button';
 import { telHref } from '@/lib/contact-links';
 import { LOCALES, LOCALE_META, dir, type Locale } from '@/lib/i18n/config';
 import { Link, useRouter } from '@/lib/i18n/navigation';
-import { formatFigure } from '@/lib/utils/format';
 import { cn } from '@/lib/utils/cn';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -38,6 +36,49 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
   const [leaving, setLeaving] = useState(false);
   const [seconds, setSeconds] = useState(AUTO_ENTER_SECONDS);
   const leavingRef = useRef(false);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
+
+  /* Auto-scroll ultra doux et lent du texte */
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container || reduced) return;
+
+    let animationFrameId: number;
+    let isUserInteracting = false;
+    let pauseTimer: ReturnType<typeof setTimeout>;
+
+    const onTouchOrWheel = () => {
+      isUserInteracting = true;
+      clearTimeout(pauseTimer);
+      pauseTimer = setTimeout(() => {
+        isUserInteracting = false;
+      }, 6000);
+    };
+
+    container.addEventListener('wheel', onTouchOrWheel, { passive: true });
+    container.addEventListener('touchstart', onTouchOrWheel, { passive: true });
+
+    const scrollStep = () => {
+      if (!isUserInteracting && container) {
+        if (container.scrollTop + container.clientHeight < container.scrollHeight - 1) {
+          container.scrollTop += 0.2; // Vitesse très lente et fluide
+        }
+      }
+      animationFrameId = requestAnimationFrame(scrollStep);
+    };
+
+    const initialDelay = setTimeout(() => {
+      animationFrameId = requestAnimationFrame(scrollStep);
+    }, 4000); // 4 secondes de contemplation avant de défiler
+
+    return () => {
+      clearTimeout(initialDelay);
+      clearTimeout(pauseTimer);
+      cancelAnimationFrame(animationFrameId);
+      container.removeEventListener('wheel', onTouchOrWheel);
+      container.removeEventListener('touchstart', onTouchOrWheel);
+    };
+  }, [reduced]);
 
   const enter = useCallback(() => {
     if (leavingRef.current) return;
@@ -48,7 +89,7 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
     } catch {
       /* private mode — the transition still works without the hint */
     }
-    window.setTimeout(() => router.replace('/'), reduced ? 0 : 1050);
+    window.setTimeout(() => router.replace('/a-propos'), reduced ? 0 : 1050);
   }, [reduced, router]);
 
   useEffect(() => {
@@ -66,8 +107,6 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
     if (target.closest('a, button, input, select, textarea, [role="button"]')) return;
     enter();
   };
-
-  const intro = WELCOME.intro;
 
   /* The splash holds the first ~0.9s; content starts underneath it and is
    * already moving when the curtain lifts, so nothing pops in fully formed. */
@@ -143,13 +182,15 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
                 locale={code}
                 hrefLang={LOCALE_META[code].hreflang}
                 className={cn(
-                  'inline-flex items-center rounded-sm border px-3 text-xs font-semibold tracking-[0.12em] uppercase transition-colors tap',
+                  'inline-flex h-8 min-w-[2.25rem] items-center justify-center text-center rounded-sm border px-2.5 text-xs font-semibold tracking-wider uppercase transition-colors tap',
                   code === locale
-                    ? 'border-red-500 bg-red-600 text-white'
+                    ? 'border-red-500 bg-red-600 text-white shadow-xs'
                     : 'border-cream/25 text-cream/75 hover:border-cream/60 hover:text-cream',
                 )}
               >
-                {LOCALE_META[code].abbr}
+                <span className="flex items-center justify-center leading-none">
+                  {LOCALE_META[code].abbr}
+                </span>
               </Link>
             ))}
           </motion.nav>
@@ -163,74 +204,114 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
             transition={{ duration: 0.85, delay: appear(0.12), ease: EASE }}
             className="max-w-2xl"
           >
-            <motion.p
-              initial={reduced ? false : { opacity: 0, x: isRtl ? 32 : -32 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: appear(0.24), ease: EASE }}
-              className="flex items-center gap-3 eyebrow text-cream/70"
-            >
-              <span
-                aria-hidden="true"
-                className="h-px w-9 bg-gradient-to-r from-transparent via-red-500 to-transparent"
-              />
-              {pick(IDENTITY.headOffice, locale)}
-            </motion.p>
+            {/* En-tête Bienvenue et Présentation de la Société en grand */}
+            <div className="space-y-3">
+              <span className="inline-block text-xs font-mono font-bold uppercase tracking-[0.22em] text-red-500">
+                SARL VOLAGRO • NUTRITION ANIMALE & AVICULTURE
+              </span>
+              <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-cream drop-shadow-md">
+                {pick(WELCOME.greeting, locale)}
+              </h1>
+              <div className="border-s-4 border-red-600 ps-4 py-1">
+                <p className="font-display text-xl sm:text-2xl md:text-3xl font-bold tracking-tight text-white leading-snug drop-shadow-sm">
+                  {pick(WELCOME_MESSAGE.header, locale)}
+                </p>
+                <p className="mt-1 font-sans text-sm sm:text-base font-medium text-cream/90 leading-relaxed max-w-2xl">
+                  {pick(WELCOME_MESSAGE.p1, locale)}
+                </p>
+              </div>
+            </div>
 
-            <motion.h1
-              initial={reduced ? false : { opacity: 0, x: isRtl ? 40 : -40 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.8, delay: appear(0.32), ease: EASE }}
-              className="mt-4 font-display text-[clamp(3.5rem,9vw,7.5rem)] leading-[0.92] tracking-[-0.02em] text-cream"
-            >
-              {pick(WELCOME.greeting, locale)}
-            </motion.h1>
-
-            <motion.p
-              initial={reduced ? false : { opacity: 0, x: isRtl ? 36 : -36 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.75, delay: appear(0.4), ease: EASE }}
-              className="mt-2 font-display text-lg font-semibold tracking-[0.16em] text-cream/85 uppercase md:text-xl"
-            >
-              {IDENTITY.legalName}
-            </motion.p>
-
+            {/* Message déroulant sans fond opaque (transparent, aérien et lisible) */}
             <motion.div
-              initial={reduced ? false : { opacity: 0, x: isRtl ? 28 : -28 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.75, delay: appear(0.5), ease: EASE }}
-              className="mt-8 max-w-xl rounded-card bg-cream p-5 text-ink shadow-[0_24px_70px_-32px_rgba(0,0,0,0.75)] md:p-6"
+              initial={reduced ? false : { opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: appear(0.4), ease: EASE }}
+              className="mt-6 max-w-2xl border-t border-b border-white/15 py-4 backdrop-blur-[2px]"
             >
-              <p className="text-[0.95rem] leading-relaxed md:text-base">{pick(intro, locale)}</p>
+              {/* Message scrollable container avec défilement ultra-doux */}
+              <div
+                ref={scrollContainerRef}
+                className="custom-scrollbar max-h-[38vh] space-y-5 overflow-y-auto pe-3 text-sm leading-relaxed text-cream/90 md:max-h-[42vh] md:text-[0.9375rem]"
+              >
+                <p className="font-display text-lg font-bold text-red-400">
+                  {pick(WELCOME_MESSAGE.salutation, locale)}
+                </p>
 
-              <dl className="mt-5 grid grid-cols-3 gap-4 border-t border-line pt-4">
-                {KEY_FIGURES.slice(0, 3).map((figure) => (
-                  <div key={figure.id} className="flex flex-col-reverse gap-1">
-                    <dt className="text-[0.65rem] leading-snug font-semibold tracking-[0.1em] text-ink-subtle uppercase">
-                      {pick(figure.label, locale)}
-                    </dt>
-                    <dd className="flex flex-wrap items-baseline gap-x-1.5 font-display text-2xl leading-none font-semibold text-ink md:text-3xl">
-                      {formatFigure(figure.value, locale, figure.kind)}
-                      {figure.suffix ? (
-                        <span className="font-sans text-[0.65rem] font-medium tracking-normal text-ink-subtle">
-                          {pick(figure.suffix, locale)}
-                        </span>
-                      ) : null}
-                    </dd>
+                <p className="font-sans leading-relaxed text-cream/95">
+                  {pick(WELCOME_MESSAGE.p2, locale)}
+                </p>
+
+                <p className="font-sans leading-relaxed text-cream/90">
+                  {pick(WELCOME_MESSAGE.p3, locale)}
+                </p>
+
+                {/* 3 Volets : Clients, Partenaires, Prospects sans arrondi ni fond blanc */}
+                <div className="grid gap-3 pt-2">
+                  <div className="border-s-2 border-red-500 bg-black/40 p-4 border-t border-e border-b border-white/10">
+                    <p className="text-xs font-bold uppercase tracking-wider text-red-400 font-display">
+                      {pick(WELCOME_MESSAGE.clientsTitle, locale)}
+                    </p>
+                    <p className="mt-1.5 text-xs leading-relaxed text-cream/85 font-sans">
+                      {pick(WELCOME_MESSAGE.clientsBody, locale)}
+                    </p>
                   </div>
-                ))}
-              </dl>
+
+                  <div className="border-s-2 border-emerald-500 bg-black/40 p-4 border-t border-e border-b border-white/10">
+                    <p className="text-xs font-bold uppercase tracking-wider text-emerald-400 font-display">
+                      {pick(WELCOME_MESSAGE.partnersTitle, locale)}
+                    </p>
+                    <p className="mt-1.5 text-xs leading-relaxed text-cream/85 font-sans">
+                      {pick(WELCOME_MESSAGE.partnersBody, locale)}
+                    </p>
+                  </div>
+
+                  <div className="border-s-2 border-amber-500 bg-black/40 p-4 border-t border-e border-b border-white/10">
+                    <p className="text-xs font-bold uppercase tracking-wider text-amber-400 font-display">
+                      {pick(WELCOME_MESSAGE.prospectsTitle, locale)}
+                    </p>
+                    <p className="mt-1.5 text-xs leading-relaxed text-cream/85 font-sans">
+                      {pick(WELCOME_MESSAGE.prospectsBody, locale)}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="font-serif italic text-cream/70 pt-2 text-sm border-t border-white/10">
+                  {pick(WELCOME_MESSAGE.closing, locale)}
+                </p>
+
+                {/* Signataire */}
+                <div className="flex items-center justify-between pt-3 border-t border-white/15">
+                  <div>
+                    <p className="font-display text-base font-bold tracking-wide text-white">
+                      {WELCOME_MESSAGE.signatory.name}
+                    </p>
+                    <p className="text-xs font-bold text-red-400 uppercase tracking-wider">
+                      {pick(WELCOME_MESSAGE.signatory.role, locale)}
+                    </p>
+                  </div>
+                  <div className="h-[2px] w-16 bg-red-600" />
+                </div>
+              </div>
             </motion.div>
 
+            {/* Instruction tactile : toucher n'importe où pour passer */}
             <motion.div
-              initial={reduced ? false : { opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: appear(0.62), ease: EASE }}
-              className="mt-9 flex flex-col items-start gap-4 sm:flex-row sm:items-center"
+              initial={reduced ? false : { opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8, delay: appear(0.65), ease: EASE }}
+              className="mt-6 flex items-center gap-3 text-cream/70"
             >
-              <Button size="lg" onClick={enter} icon={<Glyph name="arrow" size={18} />}>
-                {pick(WELCOME.cta, locale)}
-              </Button>
-              <p className="text-sm text-cream/55">{pick(WELCOME.clickHint, locale)}</p>
+              <div className="flex h-3 w-3 items-center justify-center">
+                <span className="block h-2 w-2 bg-red-500" />
+              </div>
+              <p className="text-xs uppercase tracking-wider font-semibold text-cream/80">
+                {locale === 'ar'
+                  ? 'المس أي مكان في الشاشة للمتابعة ودخول الموقع'
+                  : locale === 'en'
+                    ? 'Touch anywhere on screen to enter the site'
+                    : "Touchez n'importe où sur l'écran pour accéder au site"}
+              </p>
             </motion.div>
           </motion.div>
 

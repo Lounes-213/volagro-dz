@@ -1,13 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import { motion } from 'motion/react';
 
 import { HERO, TAGLINE } from '@content/company';
 import { pick } from '@content/types';
-import { ButtonLink } from '@/components/ui/Button';
-import { HeroCallButton } from '@/components/sections/home/HeroCallButton';
-import { Glyph } from '@/components/icons/Glyph';
 import type { Locale } from '@/lib/i18n/config';
 
 /**
@@ -71,69 +67,47 @@ export const Hero = ({ locale }: { readonly locale: Locale }) => {
         </svg>
       </div>
 
-      <div className="shell grid items-center gap-12 pt-16 pb-14 md:pt-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16 lg:pt-24 lg:pb-20">
+      <div className="shell py-16 md:py-20 lg:py-24">
         <motion.div
           initial={{ opacity: 0, y: 22 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-[75rem]"
         >
+          {/* Eyebrow identique à Présentation de l'entreprise */}
+          <div className="inline-block border-s-2 border-red-500 ps-3 py-0.5">
+            <span className="text-xs font-bold uppercase tracking-[0.2em] text-red-400">
+              SARL VOLAGRO • {locale === 'ar' ? 'نظرة عامة' : locale === 'en' ? 'Overview' : "Vue d'ensemble"}
+            </span>
+          </div>
+
+          {/* Titre majestueux qui s'étale parfaitement sur 2 lignes complètes */}
           <motion.h1
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="text-d1 max-w-[19ch] text-cream text-balance"
+            className="font-display text-d1 text-cream mt-4 max-w-[24ch]"
           >
-            {pick(HERO.headline, locale)}
+            {locale === 'fr' ? (
+              <>
+                Au niveau des élevages,
+                <br />
+                des performances maîtrisées.
+              </>
+            ) : (
+              pick(HERO.headline, locale)
+            )}
           </motion.h1>
 
+          {/* Lead texte identique à Présentation de l'entreprise */}
           <motion.p
             initial={{ opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="text-cream/80 mt-7 max-w-[52ch] text-lg leading-relaxed"
+            className="mt-4 max-w-[65ch] text-base leading-relaxed text-cream/80 md:text-lg"
           >
             {pick(TAGLINE, locale)}
           </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap"
-          >
-            <ButtonLink href="/contact" size="lg" icon={<Glyph name="mail" size={18} />}>
-              {pick(HERO.ctaPrimary, locale)}
-            </ButtonLink>
-            <HeroCallButton locale={locale} />
-          </motion.div>
-        </motion.div>
-
-        {/* The client's own collage, animated with subtle floating movement */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.94 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.85, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-          className="relative mx-auto w-full max-w-[34rem] lg:max-w-none"
-        >
-          <div className="absolute inset-[-5%] rounded-full bg-[radial-gradient(circle,rgba(220,38,38,0.32)_0%,rgba(41,114,80,0.22)_45%,transparent_70%)] animate-glow-pulse" />
-          <div className="animate-float">
-            <Image
-              src="/images/logo/volagro-animaux.png"
-              alt={pick(
-                {
-                  fr: 'Les espèces accompagnées par VOLAGRO : bovin, volaille, poisson, lapin et œufs.',
-                  ar: 'الأنواع التي ترافقها فولاغرو: الأبقار، الدواجن، الأسماك، الأرانب والبيض.',
-                  en: 'The species VOLAGRO serves: cattle, poultry, fish, rabbit and eggs.',
-                },
-                locale,
-              )}
-              width={583}
-              height={467}
-              priority
-              sizes="(min-width: 1024px) 42vw, 80vw"
-              className="relative h-auto w-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.45)] transition-transform duration-500 hover:scale-[1.02]"
-            />
-          </div>
         </motion.div>
       </div>
     </section>

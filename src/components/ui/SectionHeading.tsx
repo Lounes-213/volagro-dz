@@ -20,7 +20,7 @@ interface SectionHeadingProps {
 
 export const SectionHeading = ({
   eyebrow,
-  marker = true,
+  marker: _marker = true,
   title,
   lead,
   align = 'start',
@@ -30,22 +30,23 @@ export const SectionHeading = ({
 }: SectionHeadingProps) => (
   <header
     className={cn(
-      'flex flex-col gap-6 md:flex-row md:items-end md:justify-between',
+      'flex flex-col gap-6 md:flex-row md:items-end md:justify-between border-b border-line pb-5',
       align === 'center' && 'md:flex-col md:items-center md:text-center',
       className,
     )}
   >
-    <div className={cn('max-w-[46rem]', align === 'center' && 'mx-auto')}>
+    <div className={cn('max-w-[48rem]', align === 'center' && 'mx-auto')}>
       {eyebrow ? (
-        <p className={cn('eyebrow', marker && 'marker')}>
-          {marker ? <span className="marker-tick" aria-hidden="true" /> : null}
-          {eyebrow}
-        </p>
+        <div className="inline-block border-s-2 border-red-600 ps-3 py-0.5">
+          <span className="text-xs font-bold uppercase tracking-[0.2em] text-red-600">
+            {eyebrow}
+          </span>
+        </div>
       ) : null}
-      <h2 id={id} className="text-d2 mt-5 text-balance">
+      <h2 id={id} className="font-display text-d2 text-ink mt-3 text-balance font-bold">
         {title}
       </h2>
-      {lead ? <p className="text-lg text-ink-muted mt-5 max-w-[54ch]">{lead}</p> : null}
+      {lead ? <p className="text-base sm:text-lg text-ink-muted mt-3 max-w-[62ch] leading-relaxed">{lead}</p> : null}
     </div>
     {action ? <div className="shrink-0">{action}</div> : null}
   </header>

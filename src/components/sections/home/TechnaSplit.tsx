@@ -26,16 +26,19 @@ export const TechnaSplit = ({ locale }: { readonly locale: Locale }) => {
     <section className="bg-surface-sunken section" aria-labelledby="techna-title">
       <div className="shell grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
         <Reveal>
-          <p className="eyebrow marker">
-            <span className="marker-tick" aria-hidden="true" />
-            {pick(UI.technaEyebrow, locale)} · {PARTNERSHIP.since}
-          </p>
+          <div className="border-b border-line pb-4">
+            <div className="inline-block border-s-2 border-red-600 ps-3 py-0.5">
+              <span className="text-xs font-bold uppercase tracking-[0.2em] text-red-600">
+                {pick(UI.technaEyebrow, locale)} · {PARTNERSHIP.since}
+              </span>
+            </div>
+          </div>
 
-          <h2 id="techna-title" className="text-d2 mt-6 text-balance">
+          <h2 id="techna-title" className="font-display text-d2 text-ink mt-6 text-balance font-bold">
             {pick(EXPERTISE_FEATURE.title, locale)}
           </h2>
 
-          <p className="text-ink-muted mt-6 max-w-[52ch] text-lg">
+          <p className="text-ink-muted mt-5 max-w-[52ch] text-base sm:text-lg leading-relaxed">
             {pick(EXPERTISE_FEATURE.body, locale)}
           </p>
 

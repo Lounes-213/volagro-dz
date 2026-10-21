@@ -161,9 +161,9 @@ const LEGACY_SEEDS: readonly LegacySeed[] = [
     category: 'unites',
     confidence: 'medium',
     alt: {
-      fr: "Unité de production PREMIX de Tala Athmane (Tizi Ouzou). En face, bâtiment administratif.",
-      ar: 'وحدة إنتاج بريميكس بتالة عثمان (تيزي وزو). من الأمام، المبنى الإداري.',
-      en: 'PREMIX production unit in Tala Athmane (Tizi Ouzou). In front, administrative building.',
+      fr: "L'entrée de l'unité de production PREMIX à Tala Athmane.",
+      ar: 'مدخل وحدة إنتاج بريميكس بتالة عثمان.',
+      en: 'The entrance to the PREMIX production unit in Tala Athmane.',
     },
   },
   {
@@ -173,9 +173,9 @@ const LEGACY_SEEDS: readonly LegacySeed[] = [
     category: 'unites',
     confidence: 'medium',
     alt: {
-      fr: "À l'intérieur de l'unité de production PREMIX. La cour devant le bâtiment administratif.",
-      ar: 'داخل وحدة إنتاج بريميكس. الساحة أمام المبنى الإداري.',
-      en: 'Inside the PREMIX production unit. The courtyard in front of the administrative building.',
+      fr: "En face, bâtiment administratif de l'unité de production PREMIX à Tala Athmane.",
+      ar: 'من الأمام، المبنى الإداري لوحدة إنتاج بريميكس بتالة عثمان.',
+      en: 'Front view, administrative building of the PREMIX production unit in Tala Athmane.',
     },
   },
   {
@@ -185,9 +185,9 @@ const LEGACY_SEEDS: readonly LegacySeed[] = [
     category: 'unites',
     confidence: 'medium',
     alt: {
-      fr: "Cour extérieure de l'unité de production PREMIX.",
-      ar: 'الساحة الخارجية لوحدة إنتاج بريميكس.',
-      en: 'Outdoor yard of the PREMIX production unit.',
+      fr: "L'entrée de l'unité de production PREMIX à Tala Athmane.",
+      ar: 'مدخل وحدة إنتاج بريميكس بتالة عثمان.',
+      en: 'The entrance to the PREMIX production unit in Tala Athmane.',
     },
   },
 ];

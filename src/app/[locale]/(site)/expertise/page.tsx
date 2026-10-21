@@ -174,10 +174,11 @@ export default async function ExpertisePage({
         {/* ── 4 Pillars Grid ───────────────────────────────────────────────── */}
         <div className="mt-16">
           <div className="border-b border-line pb-4">
-            <h3 className="font-display text-d3 text-ink flex items-center gap-2.5">
-              <span className="h-2 w-2 rounded-full bg-green-600" />
-              <span>{pick(labels.pillarsTitle, locale)}</span>
-            </h3>
+            <div className="border-s-2 border-green-700 ps-3">
+              <h3 className="font-display text-d3 text-ink">
+                {pick(labels.pillarsTitle, locale)}
+              </h3>
+            </div>
           </div>
 
           <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

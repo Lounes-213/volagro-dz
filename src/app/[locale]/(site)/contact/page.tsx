@@ -158,8 +158,7 @@ export default async function ContactPage({
           {/* Quick quote interactive card */}
           <div className="bg-surface rounded-card border-line border p-7 shadow-sm lg:col-span-7 md:p-9">
             <div className="border-b border-line pb-5">
-              <div className="flex items-center gap-2.5">
-                <span className="h-2 w-2 rounded-full bg-accent" />
+              <div className="border-s-2 border-accent ps-3">
                 <h3 className="text-d3 text-ink font-display">
                   {pick(labels.formTitle, locale)}
                 </h3>
