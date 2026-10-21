@@ -180,7 +180,11 @@ export const VideoCardsGrid = ({ locale }: { readonly locale: Locale }) => {
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line/80 pb-4">
           <div className="flex items-center gap-2">
             <span className="border-s-2 border-red-600 ps-2.5 text-xs font-bold uppercase tracking-wider text-red-600">
-              {locale === 'ar' ? 'الفيديو التعريفي الرئيسي للمؤسسة' : 'Vidéo Principale de Présentation'}
+              {locale === 'ar'
+                ? 'الفيديو التعريفي الرئيسي للمؤسسة'
+                : locale === 'en'
+                  ? 'Main Corporate Presentation Video'
+                  : 'Vidéo Principale de Présentation'}
             </span>
             <span className="text-xs font-semibold text-ink-subtle">
               • SARL VOLAGRO (1998 – 2026)
@@ -191,7 +195,11 @@ export const VideoCardsGrid = ({ locale }: { readonly locale: Locale }) => {
             onClick={() => setFullscreenVideo(institutionalVideo)}
             className="inline-flex items-center gap-1.5 text-xs font-bold text-red-600 hover:text-red-700 hover:underline"
           >
-            {locale === 'ar' ? 'عرض على كامل الشاشة' : 'Visionner en plein écran'} &rarr;
+            {locale === 'ar'
+              ? 'عرض على كامل الشاشة'
+              : locale === 'en'
+                ? 'Watch Fullscreen'
+                : 'Visionner en plein écran'} &rarr;
           </button>
         </div>
 
@@ -224,15 +232,33 @@ export const VideoCardsGrid = ({ locale }: { readonly locale: Locale }) => {
 
             <div className="md:col-span-4 space-y-2.5 border-t border-line/60 pt-4 md:border-t-0 md:border-s md:ps-6 md:pt-0">
               <div className="flex items-center justify-between text-xs font-semibold text-ink-subtle">
-                <span>{locale === 'ar' ? 'القدرة الإنتاجية :' : 'Capacité :'}</span>
+                <span>
+                  {locale === 'ar'
+                    ? 'القدرة الإنتاجية :'
+                    : locale === 'en'
+                      ? 'Production Capacity:'
+                      : 'Capacité :'}
+                </span>
                 <span className="font-mono text-ink font-bold">20 000 000 / an</span>
               </div>
               <div className="flex items-center justify-between text-xs font-semibold text-ink-subtle">
-                <span>{locale === 'ar' ? 'الشريك التقني :' : 'Partenaire technique :'}</span>
+                <span>
+                  {locale === 'ar'
+                    ? 'الشريك التقني :'
+                    : locale === 'en'
+                      ? 'Technical Partner:'
+                      : 'Partenaire technique :'}
+                </span>
                 <span className="font-mono text-ink font-bold">TECHNA France</span>
               </div>
               <div className="flex items-center justify-between text-xs font-semibold text-ink-subtle">
-                <span>{locale === 'ar' ? 'سنة التأسيس :' : 'Fondation :'}</span>
+                <span>
+                  {locale === 'ar'
+                    ? 'سنة التأسيس :'
+                    : locale === 'en'
+                      ? 'Founded:'
+                      : 'Fondation :'}
+                </span>
                 <span className="font-mono text-ink font-bold">1998</span>
               </div>
             </div>
@@ -245,16 +271,27 @@ export const VideoCardsGrid = ({ locale }: { readonly locale: Locale }) => {
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-line pb-3">
           <div>
             <span className="border-s-2 border-red-600 ps-2.5 text-xs font-bold uppercase tracking-wider text-red-600">
-              {locale === 'ar' ? 'ملفات الـ CMV حسب الشعبة' : 'Dossiers CMV par Espèce'}
+              {locale === 'ar'
+                ? 'ملفات الـ CMV حسب الشعبة'
+                : locale === 'en'
+                  ? 'CMV Dossiers by Species'
+                  : 'Dossiers CMV par Espèce'}
             </span>
             <h4 className="font-display text-xl font-bold text-ink mt-1">
               {locale === 'ar'
                 ? 'فيديوهات وتغطيات التغذية الحيوانية المتخصصة'
-                : 'Vidéos thématiques & Solutions de nutrition'}
+                : locale === 'en'
+                  ? 'Technical Videos & Animal Nutrition Solutions'
+                  : 'Vidéos thématiques & Solutions de nutrition'}
             </h4>
           </div>
           <span className="text-xs text-ink-subtle font-mono">
-            {technicalVideos.length} {locale === 'ar' ? 'فيديوهات متخصصة' : 'vidéos thématiques'}
+            {technicalVideos.length}{' '}
+            {locale === 'ar'
+              ? 'فيديوهات متخصصة'
+              : locale === 'en'
+                ? 'specialized videos'
+                : 'vidéos thématiques'}
           </span>
         </div>
 
@@ -312,7 +349,13 @@ export const VideoCardsGrid = ({ locale }: { readonly locale: Locale }) => {
                       d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
                     />
                   </svg>
-                  <span>{locale === 'ar' ? 'ملء الشاشة' : 'Plein écran'}</span>
+                  <span>
+                    {locale === 'ar'
+                      ? 'ملء الشاشة'
+                      : locale === 'en'
+                        ? 'Fullscreen'
+                        : 'Plein écran'}
+                  </span>
                 </button>
               </div>
             </article>

@@ -170,17 +170,25 @@ export default async function AboutPage({
         <div className="mt-16">
           <div className="border-b border-line pb-4">
             <span className="border-s-2 border-red-600 ps-2.5 text-xs font-bold uppercase tracking-wider text-red-600 inline-block">
-              {locale === 'ar' ? 'فيديوهات وتغطيات الميدان' : 'Médiathèque & Savoir-faire'}
+              {locale === 'ar'
+                ? 'فيديوهات وتغطيات الميدان'
+                : locale === 'en'
+                  ? 'Media Library & Expertise'
+                  : 'Médiathèque & Savoir-faire'}
             </span>
             <h3 className="font-display text-d3 text-ink mt-2">
               {locale === 'ar'
                 ? 'فيديوهات حصرية: التأسيس والتغذية الدقيقة للحيوانات'
-                : 'Vidéos de Référence : De la fondation aux solutions de nutrition'}
+                : locale === 'en'
+                  ? 'Featured Videos: From Foundation to Precision Nutrition'
+                  : 'Vidéos de Référence : De la fondation aux solutions de nutrition'}
             </h3>
             <p className="text-ink-muted text-sm mt-1">
               {locale === 'ar'
                 ? 'استكشف بالفيديو منشآتنا الصناعية، وحلول CMV المتخصصة لدجاج التسمين، الأبقار الحلوب، الأغنام، الماعز والخيول.'
-                : 'Visionnez nos présentations institutionnelles et nos dossiers techniques sur le rôle crucial des CMV pour chaque espèce d’élevage.'}
+                : locale === 'en'
+                  ? 'Watch our corporate presentations and technical features detailing our advanced CMV premixes for poultry, dairy cows, sheep, goats and equines.'
+                  : 'Visionnez nos présentations institutionnelles et nos dossiers techniques sur le rôle crucial des CMV pour chaque espèce d’élevage.'}
             </p>
           </div>
 
@@ -191,7 +199,11 @@ export default async function AboutPage({
         <div className="mt-16">
           <div className="border-b border-line pb-4">
             <span className="text-xs font-bold uppercase tracking-wider text-green-700">
-              {locale === 'ar' ? 'البنية التحتية والإنتاج' : 'Infrastructures & Capacités'}
+              {locale === 'ar'
+                ? 'البنية التحتية والإنتاج'
+                : locale === 'en'
+                  ? 'Infrastructure & Facilities'
+                  : 'Infrastructures & Capacités'}
             </span>
             <h3 className="font-display text-d3 text-ink mt-1">
               {pick(labels.sitesTitle, locale)}
@@ -206,13 +218,23 @@ export default async function AboutPage({
               >
                 <div className="flex items-center gap-2 text-green-800">
                   <Glyph name="pin" size={17} />
-                  <span className="text-xs font-bold uppercase tracking-wider">Site d'exploitation</span>
+                  <span className="text-xs font-bold uppercase tracking-wider">
+                    {locale === 'ar'
+                      ? 'موقع نشاط صناعي'
+                      : locale === 'en'
+                        ? 'Operating Site'
+                        : "Site d'exploitation"}
+                  </span>
                 </div>
                 <h4 className="font-display text-d4 text-ink mt-3 font-bold">
                   {site.name}
                 </h4>
                 <p className="text-ink-muted mt-2 text-xs leading-relaxed">
-                  Zone d’Activité Tala Athmane, Wilaya de Tizi-Ouzou, Algérie.
+                  {locale === 'ar'
+                    ? 'منطقة النشاط تالة عثمان، ولاية تيزي وزو، الجزائر.'
+                    : locale === 'en'
+                      ? 'Tala Athmane Industrial Zone, Tizi-Ouzou Province, Algeria.'
+                      : 'Zone d’Activité Tala Athmane, Wilaya de Tizi-Ouzou, Algérie.'}
                 </p>
               </div>
             ))}
