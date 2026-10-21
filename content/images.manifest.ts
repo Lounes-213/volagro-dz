@@ -370,6 +370,66 @@ const LEGACY_SEEDS: readonly LegacySeed[] = [
       en: 'VOLAGRO & TECHNA Partnership — Commemorative photo cementing ongoing cooperation and know-how transfer (Photo 5/5).',
     },
   },
+  {
+    n: '27',
+    width: 1024,
+    height: 576,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Salon National SEVAGRO (Bouira) — Stand VOLAGRO & équipe d'experts avec les partenaires (Photo 1/5).",
+      ar: 'الصالون الوطني للمقاولاتية الخضراء SEVAGRO (البويرة) — جناح فولاڨرو ولقاء الشركاء والخبراء (صورة 1/5).',
+      en: 'SEVAGRO National Expo (Bouira) — VOLAGRO booth and expert team with partners (Photo 1/5).',
+    },
+  },
+  {
+    n: '28',
+    width: 1024,
+    height: 768,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Salon National SEVAGRO (Bouira) — Échanges conviviaux et consultations techniques avec les professionnels (Photo 2/5).",
+      ar: 'الصالون الوطني للمقاولاتية الخضراء SEVAGRO (البويرة) — جلسات تشاور تقنية ونقاشات مثمرة مع المهنيين (صورة 2/5).',
+      en: 'SEVAGRO National Expo (Bouira) — Technical consultations and discussions with industry professionals (Photo 2/5).',
+    },
+  },
+  {
+    n: '29',
+    width: 1024,
+    height: 768,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Salon National SEVAGRO (Bouira) — Vue d'ensemble du stand d'exposition VOLAGRO (Photo 3/5).",
+      ar: 'الصالون الوطني للمقاولاتية الخضراء SEVAGRO (البويرة) — نظرة شاملة على جناح عرض فولاڨرو واستقبال الزوار (صورة 3/5).',
+      en: 'SEVAGRO National Expo (Bouira) — Overview of the VOLAGRO exhibition booth welcoming visitors (Photo 3/5).',
+    },
+  },
+  {
+    n: '30',
+    width: 1024,
+    height: 576,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Salon National SEVAGRO (Bouira) — Présentation des échantillons de premix et CMV en flacons vitrés (Photo 4/5).",
+      ar: 'الصالون الوطني للمقاولاتية الخضراء SEVAGRO (البويرة) — عرض عينات مكملات الـ CMV والبريميكس للزبائن (صورة 4/5).',
+      en: 'SEVAGRO National Expo (Bouira) — Display of premix and CMV sample bottles for visitors (Photo 4/5).',
+    },
+  },
+  {
+    n: '31',
+    width: 1024,
+    height: 768,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Salon National SEVAGRO (Bouira) — Rencontre des éleveurs et acteurs agricoles locaux (Photo 5/5).",
+      ar: 'الصالون الوطني للمقاولاتية الخضراء SEVAGRO (البويرة) — لقاء وتكريم الفلاحين والمربين المحليين (صورة 5/5).',
+      en: 'SEVAGRO National Expo (Bouira) — Engaging with local farmers and agricultural leaders (Photo 5/5).',
+    },
+  },
 ];
 
 const LEGACY_PHOTOS: readonly ManifestEntry[] = LEGACY_SEEDS.map((seed) => ({

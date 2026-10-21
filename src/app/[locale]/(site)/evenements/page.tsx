@@ -141,6 +141,22 @@ export default async function EventsPage({
         en: 'VOLAGRO leadership delegation at TECHNA global HQ and SPACE expo: strategic meetings, discovering state-of-the-art zootechnical innovations, and reinforcing bilateral cooperation.',
       },
     },
+    {
+      id: 'salon-sevagro-bouira',
+      slot: 'photo.legacy.27',
+      tag: { fr: 'Salon National', ar: 'صالون وطني', en: 'National Exhibition' },
+      date: '12 - 16 Novembre 2025',
+      title: {
+        fr: 'Participation au Salon National SEVAGRO (Bouira)',
+        ar: 'مشاركة فولاڨرو في الصالون الوطني للمقاولاتية الخضراء SEVAGRO (البويرة)',
+        en: 'Participation in the SEVAGRO National Exhibition (Bouira)',
+      },
+      desc: {
+        fr: 'Présence active de la SARL VOLAGRO au Salon National de l’Entrepreneuriat Vert, de l’Agriculture et de l’Agroalimentaire à Bouira : présentation des gammes CMV, conseils techniques et rencontres avec les éleveurs.',
+        ar: 'مشاركة متميزة لشركة فولاڨرو في الصالون الوطني للمقاولاتية الخضراء للفلاحة والصناعات الغذائية بالبويرة: عرض تشكيلة مكملات CMV، إرشادات تقنية ميدانية ولقاءات مباشرة مع المربين والفلاحين.',
+        en: 'Active participation of SARL VOLAGRO at the SEVAGRO National Green Agro-Industry Expo in Bouira: presenting CMV premix lines, technical guidance, and meeting local livestock farmers.',
+      },
+    },
   ];
 
   return (
