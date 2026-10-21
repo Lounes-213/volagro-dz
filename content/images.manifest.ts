@@ -190,6 +190,18 @@ const LEGACY_SEEDS: readonly LegacySeed[] = [
       en: 'The entrance to the PREMIX production unit in Tala Athmane.',
     },
   },
+  {
+    n: '12',
+    width: 1008,
+    height: 756,
+    category: 'evenements',
+    confidence: 'high',
+    alt: {
+      fr: "Participation au Colloque International des Ruminants (21 et 22 mai 2025, France) — Échange d'expertises et transfert de compétences.",
+      ar: 'مشاركة ممثلي شركة فولاڨرو للتغذية الحيوانية في "الملتقى الدولي للحيوانات المجترة" (21 و 22 ماي 2025 بفرنسا) — تبادل الخبرات ونقل المهارات.',
+      en: 'Participation in the International Ruminant Symposium (May 21-22, 2025, France) — Expertise exchange and skill transfer.',
+    },
+  },
 ];
 
 const LEGACY_PHOTOS: readonly ManifestEntry[] = LEGACY_SEEDS.map((seed) => ({

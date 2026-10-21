@@ -109,6 +109,22 @@ export default async function EventsPage({
         en: 'Ongoing technical exchanges between our engineers and French poultry physiology experts to calibrate feed programs to bird genetics.',
       },
     },
+    {
+      id: 'colloque-ruminants-france',
+      slot: 'photo.legacy.12',
+      tag: { fr: 'Colloque International', ar: 'ملتقى دولي', en: 'International Symposium' },
+      date: '21 - 22 Mai 2025',
+      title: {
+        fr: 'Participation au Colloque International des Ruminants en France',
+        ar: 'مشاركة فولاڨرو في الملتقى الدولي للحيوانات المجترة بفرنسا',
+        en: 'Participation in the International Ruminant Symposium in France',
+      },
+      desc: {
+        fr: 'Présence des représentants de SARL VOLAGRO aux côtés d’experts internationaux : échange d’expertises, montée en compétences et transfert de savoir-faire en nutrition animale.',
+        ar: 'حضور ممثلي شركة فولاڨرو للتغذية الحيوانية إلى جانب خبراء دوليين: تبادل للخبرات، إعادة تأهيل، ونقل المهارات المتقدمة في تغذية المجترات.',
+        en: 'SARL VOLAGRO representatives alongside international experts: sharing field expertise, capacity building, and advanced nutrition knowledge transfer.',
+      },
+    },
   ];
 
   return (
