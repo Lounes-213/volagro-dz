@@ -7,9 +7,9 @@
 
 export const WELCOME_MESSAGE = {
   header: {
-    fr: 'Bienvenue chez la Sarl VOLAGRO',
-    ar: 'مرحبًا بكم في شركة SARL VOLAGRO',
-    en: 'Welcome to Sarl VOLAGRO',
+    fr: 'Chez la Sarl VOLAGRO',
+    ar: 'شركة SARL VOLAGRO',
+    en: 'Sarl VOLAGRO',
   },
   salutation: {
     fr: 'Chers clients, partenaires et visiteurs,',

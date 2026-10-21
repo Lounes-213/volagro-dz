@@ -102,20 +102,13 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
     return () => window.clearTimeout(timer);
   }, [enter, leaving, seconds]);
 
-  const onPointerDown = (event: React.PointerEvent<HTMLElement>): void => {
-    const target = event.target as HTMLElement;
-    if (target.closest('a, button, input, select, textarea, [role="button"]')) return;
-    enter();
-  };
-
   /* The splash holds the first ~0.9s; content starts underneath it and is
    * already moving when the curtain lifts, so nothing pops in fully formed. */
   const appear = (delay: number): number => (reduced ? 0 : delay + 0.8);
 
   return (
     <section
-      onPointerDown={onPointerDown}
-      className="relative isolate flex min-h-dvh cursor-pointer flex-col overflow-hidden bg-charcoal-950 text-cream"
+      className="relative isolate flex min-h-dvh flex-col overflow-hidden bg-charcoal-950 text-cream"
     >
       {/* ── Background: the home hero, unchanged ─────────────────────────── */}
       <div aria-hidden="true" className="absolute inset-0 -z-10 overflow-hidden">
@@ -295,23 +288,20 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
               </div>
             </motion.div>
 
-            {/* Instruction tactile : toucher n'importe où pour passer */}
+            {/* Bouton d'entrée explicite */}
             <motion.div
-              initial={reduced ? false : { opacity: 0 }}
-              animate={{ opacity: 1 }}
+              initial={reduced ? false : { opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: appear(0.65), ease: EASE }}
-              className="mt-6 flex items-center gap-3 text-cream/70"
+              className="mt-6 flex items-center gap-4"
             >
-              <div className="flex h-3 w-3 items-center justify-center">
-                <span className="block h-2 w-2 bg-red-500" />
-              </div>
-              <p className="text-xs uppercase tracking-wider font-semibold text-cream/80">
-                {locale === 'ar'
-                  ? 'المس أي مكان في الشاشة للمتابعة ودخول الموقع'
-                  : locale === 'en'
-                    ? 'Touch anywhere on screen to enter the site'
-                    : "Touchez n'importe où sur l'écran pour accéder au site"}
-              </p>
+              <button
+                type="button"
+                onClick={enter}
+                className="group relative inline-flex items-center justify-center overflow-hidden rounded-sm bg-red-600 px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-red-600/30 transition-all duration-300 hover:bg-red-700 hover:shadow-red-600/50 hover:scale-[1.02] active:scale-[0.98] tap cursor-pointer"
+              >
+                <span>{pick(WELCOME.cta, locale)}</span>
+              </button>
             </motion.div>
           </motion.div>
 
