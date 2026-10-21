@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "destination": "/fr/bienvenue/",
+      "permanent": false
+    },
+    {
       "source": "/index.html",
       "destination": "/fr/bienvenue/",
       "permanent": true

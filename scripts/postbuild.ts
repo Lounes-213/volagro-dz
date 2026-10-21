@@ -134,19 +134,22 @@ ${links}
 };
 
 const main = async (): Promise<void> => {
-  if (!existsSync(outDir)) {
-    throw new Error(
-      `[postbuild] No "out/" directory found. Run \`npm run build\` (next build) before this script.`,
-    );
+  const gateHtml = buildGate();
+  const vercelStaticDir = join(projectRoot, '.vercel', 'output', 'static');
+
+  if (existsSync(outDir) || !existsSync(vercelStaticDir)) {
+    await mkdir(outDir, { recursive: true });
+    await writeFile(join(outDir, 'index.html'), gateHtml, 'utf8');
+    console.log(`[postbuild] language gate written to out/index.html`);
   }
 
-  await mkdir(outDir, { recursive: true });
-  await writeFile(join(outDir, 'index.html'), buildGate(), 'utf8');
+  if (existsSync(vercelStaticDir)) {
+    await writeFile(join(vercelStaticDir, 'index.html'), gateHtml, 'utf8');
+    console.log(`[postbuild] language gate written to .vercel/output/static/index.html`);
+  }
 
   const written = LOCALES.map((code) => `  /${code}/`).join('\n');
-  console.log(
-    `[postbuild] language gate written to out/index.html\n[postbuild] locales:\n${written}`,
-  );
+  console.log(`[postbuild] locales:\n${written}`);
 };
 
 main().catch((error: unknown) => {

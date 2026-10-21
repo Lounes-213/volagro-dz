@@ -15,27 +15,29 @@ import type { NextConfig } from 'next';
  *  3. `trailingSlash: true` emits `/<route>/index.html`, which every static host resolves
  *     identically and keeps the canonical URL space consistent across /fr, /ar and /en.
  */
-const isDev = process.env.NODE_ENV !== 'production';
+/**
+ * Use static export only for cPanel builds (STATIC_EXPORT=1).
+ * On Vercel, the native build adapter handles routing, redirects, and image
+ * optimisation — `output: 'export'` would disable all of that.
+ */
+const useStaticExport = process.env.STATIC_EXPORT === '1';
 
 const nextConfig: NextConfig = {
-  ...(!isDev ? { output: 'export' } : {}),
+  ...(useStaticExport ? { output: 'export' } : {}),
   reactStrictMode: true,
   trailingSlash: true,
   poweredByHeader: false,
   pageExtensions: ['ts', 'tsx', 'mdx'],
-  ...(isDev
-    ? {
-        async redirects() {
-          return [
-            {
-              source: '/',
-              destination: '/fr/',
-              permanent: false,
-            },
-          ];
-        },
-      }
-    : {}),
+
+  async redirects() {
+    return [
+      {
+        source: '/',
+        destination: '/fr/bienvenue/',
+        permanent: false,
+      },
+    ];
+  },
 
   images: {
     unoptimized: true,

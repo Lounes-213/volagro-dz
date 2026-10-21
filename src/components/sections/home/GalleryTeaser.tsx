@@ -25,7 +25,7 @@ import { cn } from '@/lib/utils/cn';
  * three different aspect ratios read as one composition instead of a loose grid.
  * The first frame is `priority`: it is the LCP element of this section.
  */
-const FEATURE_IDS = new Set(['photo.legacy.06', 'photo.legacy.02']);
+const FEATURE_IDS = new Set(['photo.legacy.41', 'photo.legacy.35', 'photo.legacy.06', 'photo.legacy.02']);
 
 export const GalleryTeaser = ({ locale }: { readonly locale: Locale }) => {
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null);

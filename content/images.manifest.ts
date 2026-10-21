@@ -690,7 +690,7 @@ export const IMAGE_BY_ID: ReadonlyMap<string, ManifestEntry> = new Map(
   IMAGES.map((entry) => [entry.id, entry]),
 );
 
-export const GALLERY_PHOTOS: readonly ManifestEntry[] = LEGACY_PHOTOS;
+export const GALLERY_PHOTOS: readonly ManifestEntry[] = [...LEGACY_PHOTOS].reverse();
 
 export const photosByCategory = (category: PhotoCategory): readonly ManifestEntry[] =>
   LEGACY_PHOTOS.filter((photo) => photo.category === category);
