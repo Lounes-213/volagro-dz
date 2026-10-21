@@ -288,17 +288,17 @@ export const WelcomeScreen = ({ locale }: { readonly locale: Locale }) => {
               </div>
             </motion.div>
 
-            {/* Bouton d'entrée explicite */}
+            {/* Bouton d'entrée explicite : centré sur mobile, aligné au départ sur écran large */}
             <motion.div
               initial={reduced ? false : { opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: appear(0.65), ease: EASE }}
-              className="mt-6 flex items-center gap-4"
+              className="mt-6 flex items-center justify-center sm:justify-start"
             >
               <button
                 type="button"
                 onClick={enter}
-                className="group relative inline-flex items-center justify-center overflow-hidden rounded-sm bg-red-600 px-7 py-3.5 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-red-600/30 transition-all duration-300 hover:bg-red-700 hover:shadow-red-600/50 hover:scale-[1.02] active:scale-[0.98] tap cursor-pointer"
+                className="group relative inline-flex w-full sm:w-auto items-center justify-center overflow-hidden rounded-sm bg-red-600 px-8 py-3.5 text-sm font-bold uppercase tracking-wider text-white shadow-lg shadow-red-600/30 transition-all duration-300 hover:bg-red-700 hover:shadow-red-600/50 hover:scale-[1.02] active:scale-[0.98] tap cursor-pointer"
               >
                 <span>{pick(WELCOME.cta, locale)}</span>
               </button>
