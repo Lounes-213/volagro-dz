@@ -250,6 +250,66 @@ const LEGACY_SEEDS: readonly LegacySeed[] = [
       en: 'International Ruminant Symposium (France, May 21-22, 2025) — Concluding sessions and consolidating technical know-how (Photo 5/5).',
     },
   },
+  {
+    n: '17',
+    width: 800,
+    height: 600,
+    category: 'salons',
+    confidence: 'high',
+    alt: {
+      fr: "Clôture du Salon International SIPSA 2025 — Échanges avec les partenaires professionnels, clients et fournisseurs sur le stand VOLAGRO (Photo 1/5).",
+      ar: 'إختتام الصالون الدولي للزراعة والإنتاج الحيواني SIPSA 2025 — لقاءات مثمرة مع الشركاء المهنيين والزبائن والممولين (صورة 1/5).',
+      en: 'Closing of the SIPSA 2025 International Exhibition — Meetings with professional partners, clients, and suppliers at the VOLAGRO booth (Photo 1/5).',
+    },
+  },
+  {
+    n: '18',
+    width: 443,
+    height: 590,
+    category: 'salons',
+    confidence: 'high',
+    alt: {
+      fr: "Salon SIPSA 2025 — Rencontres techniques et conseils personnalisés pour les éleveurs (Photo 2/5).",
+      ar: 'صالون SIPSA 2025 — تقديم الاستشارات الفنية والحلول الغذائية المخصصة للمربين (صورة 2/5).',
+      en: 'SIPSA 2025 Exhibition — Technical advisory and tailored nutritional guidance for farmers (Photo 2/5).',
+    },
+  },
+  {
+    n: '19',
+    width: 590,
+    height: 443,
+    category: 'salons',
+    confidence: 'high',
+    alt: {
+      fr: "Salon SIPSA 2025 — Présentation des gammes de CMV et des performances d'élevage (Photo 3/5).",
+      ar: 'صالون SIPSA 2025 — عرض تشكيلات مكملات الـ CMV ونتائج تحسين أداء القطعان (صورة 3/5).',
+      en: 'SIPSA 2025 Exhibition — Presentation of CMV premix lines and livestock performance results (Photo 3/5).',
+    },
+  },
+  {
+    n: '20',
+    width: 590,
+    height: 443,
+    category: 'salons',
+    confidence: 'high',
+    alt: {
+      fr: "Salon SIPSA 2025 — Concertation et partenariats avec les acteurs de la filière avicole et bovine (Photo 4/5).",
+      ar: 'صالون SIPSA 2025 — تعزيز الروابط والشراكات الاستراتيجية مع فاعلي شعبة الدواجن والمجترات (صورة 4/5).',
+      en: 'SIPSA 2025 Exhibition — Strategic partnerships with poultry and livestock sector stakeholders (Photo 4/5).',
+    },
+  },
+  {
+    n: '21',
+    width: 443,
+    height: 590,
+    category: 'salons',
+    confidence: 'high',
+    alt: {
+      fr: "Salon SIPSA 2025 — L'équipe commerciale et technique VOLAGRO mobilisée au service de la filière (Photo 5/5).",
+      ar: 'صالون SIPSA 2025 — فريق فولاڨرو التجاري والتقني مجنّد لخدمة ترقية الإنتاج الوطني (صورة 5/5).',
+      en: 'SIPSA 2025 Exhibition — VOLAGRO technical and commercial team dedicated to agricultural excellence (Photo 5/5).',
+    },
+  },
 ];
 
 const LEGACY_PHOTOS: readonly ManifestEntry[] = LEGACY_SEEDS.map((seed) => ({

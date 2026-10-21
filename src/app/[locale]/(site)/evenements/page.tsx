@@ -79,18 +79,18 @@ export default async function EventsPage({
     },
     {
       id: 'salon-professionnel-sipsa',
-      slot: 'photo.legacy.01',
-      tag: { fr: 'Salon Professionnel', ar: 'معرض مهني', en: 'Trade Fair' },
-      date: 'Participation continue',
+      slot: 'photo.legacy.17',
+      tag: { fr: 'Salon International', ar: 'صالون دولي', en: 'International Trade Fair' },
+      date: 'SIPSA Édition 2025',
       title: {
-        fr: 'Présence aux salons internationaux de l’élevage et de l’agroalimentaire',
-        ar: 'المشاركة في المعارض الدولية للإنتاج الحيواني والصناعات الغذائية',
-        en: 'Presence at international livestock and agribusiness trade fairs',
+        fr: 'Participation et clôture du Salon International SIPSA 2025',
+        ar: 'مشاركة واختتام فعاليات الصالون الدولي SIPSA 2025',
+        en: 'Participation and closing of the SIPSA 2025 International Exhibition',
       },
       desc: {
-        fr: 'Accueil des partenaires industriels, éleveurs de reproducteurs et fabricants d’aliments sur le stand VOLAGRO pour présenter les nouvelles formules de prémélanges.',
-        ar: 'استقبال الشركاء والمربين ومصنعي الأعلاف بجناح فولاغرو لعرض أحدث تركيبات مكمّلات الـ CMV وتوفير الاستشارات الفنية.',
-        en: 'Welcoming industrial partners, breeders, and feed manufacturers at the VOLAGRO booth to present newly developed premix formulations.',
+        fr: 'Une occasion privilégiée de rencontres fructueuses avec nos partenaires, professionnels, éleveurs et fournisseurs pour partager les innovations en nutrition animale et équipements d’élevage.',
+        ar: 'فرصة متميزة لعقد لقاءات بنّاءة مع الشركاء المهنيين، الزبائن والممولين، ومشاركة أحدث الابتكارات في التغذية ومكملات CMV وعصارة التجارب الميدانية.',
+        en: 'A prime opportunity for constructive meetings with professional partners, clients, and suppliers, showcasing the latest premix innovations and field expertise.',
       },
     },
     {
